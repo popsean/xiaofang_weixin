@@ -1,9 +1,11 @@
 {
   "pages": [
+    "pages/building/building",
     "pages/index/index",
     "pages/inspection/inspection",
     "pages/login/login",
     "pages/home/home"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

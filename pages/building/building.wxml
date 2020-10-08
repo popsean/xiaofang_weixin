@@ -1,0 +1,5 @@
+<import src="/templates/building-list/index" />
+<search-bar default-text="搜索楼宇" focus-text="楼宇名称" bindfocus="onFocus" bindinput="onInput" bindclear="onClear" bindhide="onUnfocus"></search-bar>
+
+<template wx:if="{{isFocus && keyword}}" is="building-list" data="{{...searching}}"></template>
+<template wx:else is="building-list" data="{{...default}}"></template>

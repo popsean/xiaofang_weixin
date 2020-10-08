@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "楼宇",
+  "usingComponents":
+  {
+    "search-bar": "/components/search-bar/index",
+    "load-more": "/components/load-more/index",
+    "no-data": "/components/no-data/index"
+  }
+}
