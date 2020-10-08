@@ -1,0 +1,82 @@
+<view class="weui-cells">
+
+  <!-- 巡检日期 -->
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-label">巡检日期</view>
+    </view>
+    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-label">{{formatDate}}</view>
+    </view>
+  </view>
+
+  <!-- 楼宇 -->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">楼宇名称</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="xxx楼" bindinput="onInput" data-label="buildingName" />
+    </view>
+  </view>
+
+  <!-- 区域 -->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">巡检区域</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" bindinput="onInput" data-label="area" />
+    </view>
+  </view>
+
+  <!--  巡检状态 -->
+  <view class="weui-cell weui-cell_select">
+    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-label">巡检状态</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker bindchange="onInsSelect" mode="selector" value="{{insStateIndex}}" range="{{insStateList}}">
+        <view class="weui-select weui-select_in-select-after">{{insStateList[insStateIndex]}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 巡检概要 -->
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">巡检概要</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" value="{{inspectionInfo.description}}" bindinput="onInput" data-label="description" />
+    </view>
+  </view>
+
+  <!-- 上传附件 -->
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <view class="weui-uploader">
+        <view class="weui-uploader__hd">
+          <view class="weui-uploader__title">巡检附件</view>
+        </view>
+
+        <view class="weui-uploader__bd">
+          <view class="weui-uploader__files">
+            <view class="weui-uploader__file" wx:for="{{insAttachImgs}}" wx:for-index="idx">
+              <image class="weui-uploader__img" src="{{item}}" catchtap="onPreviewImage" data-index="{{idx}}"/>
+              <icon size="25" type="cancel" data-index="{{idx}}" catchtap="onDeleteImage"></icon>
+            </view>
+            <view class="weui-uploader__input-box" style='display:{{hideAdd?"none":"block"}}'>
+              <view class="weui-uploader__input" bindtap="onChooseImage" data-type="front"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+</view>
+
+<view class="weui-btn-area">
+  <button class="weui-btn" type="primary" catchtap="onSubmit">提交</button>
+</view>
