@@ -1,7 +1,7 @@
 
-<!-- 图书馆列表，页面内必须引入load-more与no-data组件 -->
+<!-- 楼宇列表，页面内必须引入load-more与no-data组件 -->
 <template name="building-list">
-  <!-- 图书馆列表 -->
+  <!-- 楼宇列表 -->
   <view wx:if="{{buildings.length}}" class="weui-cells weui-cells_after-title library-list">
     <navigator wx:for="{{buildings}}" wx:key="{{item._id}}"  class="weui-cell" hover-class="ui--active" bindtap="onClickLibraryItem">
       <view class="library-item__info">

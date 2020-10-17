@@ -1,0 +1,34 @@
+<template name="list-item">
+
+  <view class="weui-cells weui-cells_after-title list-item">
+
+    <!--  左侧附件区域 -->
+    <image class="weui-cell__img"  src="../../images/test_icon.jpg" />
+
+    <!--  右侧内容区域 -->
+    <view class="list-item__content">
+
+      <view class="library-item__info">
+        <view class="library-item__info-name">
+          <text class="font-black-34 font-break">概要1234567890123456789012345678901234567890123456789012345678901234567890</text>
+        </view>
+      </view>
+
+      <view class="library-item__info">
+        <view class="font-gray-26 ellipsis">区域: 正常</view>
+        <view class="font-gray-26 ellipsis">状态: 正常</view>
+        <view class="font-gray-26 ellipsis" style="margin-left: 20rpx;">隐患数: 2</view>
+      </view>
+
+      <view class="library-item__info">
+        <view class="font-gray-26 ellipsis">日期: xxxxx </view>
+      </view>
+      <view class="library-item__info">
+        <view class="font-gray-26 ellipsis" >处理人: 张三</view>
+      </view>
+    </view>
+
+  </view>
+
+
+</template>

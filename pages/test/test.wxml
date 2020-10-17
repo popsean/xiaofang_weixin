@@ -1,0 +1,3 @@
+<!--pages/test/test.wxml-->
+<import src="/templates/list-item/index.wxml" />
+<template is="list-item"></template>

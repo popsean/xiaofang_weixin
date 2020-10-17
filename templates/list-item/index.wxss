@@ -1,0 +1,45 @@
+.list-item {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  background-color: cyan;
+}
+.weui-cell__img {
+  display: flex;
+  width: 79px;
+  height: 79px;
+}
+.list-item__content{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.library-item__info {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center; /* 必须有这一行，否则不会有省略号 */
+  background-color: green;
+
+}
+.font-break {
+  word-break:break-all;
+}
+.library-item__info-name {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+
+  /* width: 60px; */
+  padding: 0 10px 0 20px;
+  /* flex:1; */
+  align-items: center;
+  background-color: red;
+}
+
+/* .library-item__info-name image {
+  flex: 0 0 40rpx;
+  width: 30rpx;
+  height: 30rpx;
+  vertical-align: middle;
+} */
