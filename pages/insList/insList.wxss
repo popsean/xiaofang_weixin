@@ -1,1 +1,78 @@
-@import "/templates/list-item/index.wxss"
+@import "/templates/list-item/index.wxss";
+
+.top_container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px;
+}
+.left-margin{
+  margin-left: 10px;
+}
+.text-name{
+  font-weight:bold;
+  font-size:38rpx;
+  color: #000;
+  font-style: bold;
+}
+.text-warn{
+  font-weight:bold;
+  font-size:32rpx;
+  color: #fff;
+  padding: 4px;
+  background-color: lightcoral;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+.text-normal{
+  font-weight:bold;
+  font-size:32rpx;
+  color: #fff;
+  padding: 4px;
+  background-color: green;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+.nav{
+  margin-left: 20px;
+  margin-right: 10px;
+  position: absolute;
+  right: 0;
+}
+.text-add{
+  font-weight:bold;
+  font-size:32rpx;
+  color: #fff;
+  padding: 4px;
+  background-color: cornflowerblue;
+  border-radius: 4px;
+}
+.button-area{
+  display: flex;
+  padding: 5px;
+  justify-content: space-around;
+  background-color: #fff;
+}
+
+.big-button-area > async-button:last-child {
+  margin-bottom: 0;
+}
+
+.mini-button-area > async-button {
+  margin-right: 6px;
+}
+.sticky-header1 {
+  padding: 10px 20px;
+  line-height: 30px;
+  background-color: #fff;
+  border-color: 1px solid #eee;
+}
+
+.sticky-header2 {
+  padding: 10px 20px;
+  line-height: 30px;
+  background-color: #ddd;
+  border-color: 1px solid #eee;
+}

@@ -3,6 +3,8 @@
   "usingComponents":
   {
     "load-more": "/components/load-more/index",
-    "no-data": "/components/no-data/index"
+    "no-data": "/components/no-data/index",
+    "async-button": "/components/async-button/index",
+    "sticky": "/components/sticky/index"
   }
 }

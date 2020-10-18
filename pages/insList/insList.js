@@ -17,7 +17,12 @@ Page({
    */
   data: {
 
+    scrollTop: 0,
+    eventInfo: {},
+
     buildingId: '5c04f64b00c4056ce4a3cc2b',
+    buildingName: '哈哈',
+    unresolve: 2,
     dataList: [], // 默认状态下的的楼宇列表，未输入关键字时展示
     loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
     isNoData: false, // 是否暂无数据,
@@ -112,12 +117,21 @@ Page({
     wx.showLoading({ title: '加载中', mask: true })
     this._fetchData(this.data.buildingId).then(res => {
       this.setData({
-        dataList: res,
-        isNoData: res.length === 0
+        dataList: res.list,
+        unresolve:res.unresolve,
+        isNoData: res.list.length === 0
       })
     }).catch(() => {
       this.setData({ isNoData: true })
     }).finally(() => wx.hideLoading())
+  },
+
+  onPageScroll: function (e) {
+    this.setData({scrollTop: e.scrollTop})
+  },
+
+  onSticky: function (e) {
+    this.setData({eventInfo: e.detail})
   },
 
   onReachBottom: function () {
@@ -133,8 +147,10 @@ Page({
     this._fetchData(this.data.buildingId).then(res => {
       let { dataList } = this.data;
 
-      params.dataList = dataList.concat(res)
-      params.loadMoreStatus = res.length ? 'hidding' : 'nomore'
+      let list = res.list;
+      params.dataList = dataList.concat(list)
+      params.loadMoreStatus = list.length ? 'hidding' : 'nomore'
+      params.unresolve = res.unresolve
       this.setData(params)
     }).catch(() => {
       params.loadMoreStatus = 'hidding'
@@ -173,26 +189,27 @@ function fetchData(id) {
   return getInspections({ buildingID: id, pageNo: pageNo, size: PAGE_SIZE }).then(res => {
     pageNo++;
     console.log('inspection result:' + res.data.result.length)
-    return bizProcessData(res.data.result);
+    return bizProcessData(res.data);
   })
 }
 
-function bizProcessData(insS) {
+function bizProcessData(data) {
+  let result= {}
   let list = []
-  console.log('bizProcessData:' + insS.length)
-  insS.forEach((ins, index) => {
-    // if (building.latestSecurityState == '隐患挂账') {
-    //   building.secure = 0
-    // } else {
-    //   building.secure = 1
-    // }
+  console.log('bizProcessData:' + data.result.length)
+  console.log(' data.unresolvedHazs:' + JSON.stringify(data))
+  console.log(' data.unresolvedHazs:' + data.totalUnresolveNum)
+  data.result.forEach((ins, index) => {
+
     console.log('inspection:' + ins.description)
     // console.log('inspection2 ')
     list.push(mapModel(ins, index))
 
   })
   console.log('list:' + list.length)
-  return list;
+  result.list = list;
+  result.unresolve = data.totalUnresolveNum
+  return result;
 }
 
 function mapModel(ins, idx) {

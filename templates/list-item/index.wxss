@@ -15,7 +15,7 @@
   display: flex;
   width: 79px;
   height: 79px;
-  background-color: indianred;
+  /* background-color: indianred; */
 }
 .weui-cell__img {
   display: flex;
