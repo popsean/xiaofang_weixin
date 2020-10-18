@@ -7,7 +7,7 @@
 <view wx:if="{{dataList.length}}" >
   <navigator wx:for="{{dataList}}" wx:key="{{item._id}}" hover-class="ui--active"
     bindtap="onClickLibraryItem">
-    <template is="list-item" data="{{item}}" ></template>
+    <template is="list-item" data="{{...item}}" ></template>
   </navigator>
 </view>
 <!-- 加载更多、暂无数据 -->

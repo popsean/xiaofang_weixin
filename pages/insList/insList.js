@@ -1,5 +1,5 @@
 import { getInspections } from '../../apis/inspection'
-import {turntoDate} from  '../../utils/turnTime'
+import { turntoDate } from '../../utils/turnTime'
 
 
 
@@ -17,7 +17,7 @@ Page({
    */
   data: {
 
-    buildingId:'5c04f64b00c4056ce4a3cc2b',
+    buildingId: '5c04f64b00c4056ce4a3cc2b',
     dataList: [], // 默认状态下的的楼宇列表，未输入关键字时展示
     loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
     isNoData: false, // 是否暂无数据,
@@ -40,7 +40,7 @@ Page({
       subCount: '3',
       date: '2020-10-23',
       user: 'me'
-    }, 
+    },
     {
       _id: 2,
       img: '../../images/test_icon.jpg',
@@ -50,7 +50,7 @@ Page({
       subCount: '3',
       date: '2020-10-23',
       user: 'me'
-    },{
+    }, {
       _id: 2,
       img: '../../images/test_icon.jpg',
       desc: 'hhhhhhhhh',
@@ -59,7 +59,7 @@ Page({
       subCount: '3',
       date: '2020-10-23',
       user: 'me'
-    },{
+    }, {
       _id: 2,
       img: '../../images/test_icon.jpg',
       desc: 'hhhhhhhhh',
@@ -68,7 +68,7 @@ Page({
       subCount: '3',
       date: '2020-10-23',
       user: 'me'
-    },{
+    }, {
       _id: 2,
       img: '../../images/test_icon.jpg',
       desc: 'hhhhhhhhh',
@@ -77,7 +77,7 @@ Page({
       subCount: '3',
       date: '2020-10-23',
       user: 'me'
-    },{
+    }, {
       _id: 2,
       img: '../../images/test_icon.jpg',
       desc: 'hhhhhhhhh',
@@ -97,7 +97,7 @@ Page({
       date: '2020-10-23',
       user: 'me'
     }
-  ],
+    ],
   },
 
   /**
@@ -113,7 +113,7 @@ Page({
     this._fetchData(this.data.buildingId).then(res => {
       this.setData({
         dataList: res,
-        isNoData:res.length === 0
+        isNoData: res.length === 0
       })
     }).catch(() => {
       this.setData({ isNoData: true })
@@ -141,6 +141,21 @@ Page({
       this.setData(params)
     })
   },
+  onPreviewImage: function (e) {
+    let index = parseInt(e.currentTarget.dataset.index)
+    console.log('onPreviewImage: lable=' + index)
+    let imgsList = []
+    this.data.dataList[index].attachImgs.forEach(img => {
+      imgsList.push(img.url)
+
+    })
+    wx.previewImage({
+      // 当前显示图片的http链接
+      current: imgsList[0],
+      // l需要预览的图片http链接列表，filter过滤空ur
+      urls: imgsList
+    })
+  },
 
 
   /**
@@ -155,8 +170,8 @@ Page({
  */
 function fetchData(id) {
   console.log('inspection: fetchData')
-  return getInspections({ buildingID:id, pageNo: pageNo, size: PAGE_SIZE }).then(res => {
-    pageNo ++;
+  return getInspections({ buildingID: id, pageNo: pageNo, size: PAGE_SIZE }).then(res => {
+    pageNo++;
     console.log('inspection result:' + res.data.result.length)
     return bizProcessData(res.data.result);
   })
@@ -165,7 +180,7 @@ function fetchData(id) {
 function bizProcessData(insS) {
   let list = []
   console.log('bizProcessData:' + insS.length)
-  insS.forEach(ins => {
+  insS.forEach((ins, index) => {
     // if (building.latestSecurityState == '隐患挂账') {
     //   building.secure = 0
     // } else {
@@ -173,24 +188,28 @@ function bizProcessData(insS) {
     // }
     console.log('inspection:' + ins.description)
     // console.log('inspection2 ')
-    list.push(mapModel(ins))
-    
+    list.push(mapModel(ins, index))
+
   })
   console.log('list:' + list.length)
   return list;
 }
-function mapModel(ins){
-  let model ={}
-  model._id= ins._id
-  model.img= ins.attachImgs.length > 0 ? ins.attachImgs[0].url : ''
-  model.desc= ins.description
-  model.area= ins.area
-  model.status= ins.state
-  model.subCount= ins.hazardsCount
-  model.date= turntoDate(
+
+function mapModel(ins, idx) {
+  let model = {}
+  model.idx = idx;
+  model._id = ins._id
+  model.img = ins.attachImgs.length > 0 ? ins.attachImgs[0].url : ''
+  model.attachImgs = ins.attachImgs
+  model.img_count = ins.attachImgs.length
+  model.desc = ins.description
+  model.area = ins.area
+  model.status = ins.state
+  model.subCount = ins.hazardsCount
+  model.date = turntoDate(
     new Date(ins.createDate).getTime()
-    );
-  model.user= ins.createUserName
+  );
+  model.user = ins.createUserName
 
   console.log('mapModel : ' + JSON.stringify(model))
   return model;

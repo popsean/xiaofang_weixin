@@ -11,10 +11,27 @@
 .left_marin{
   margin-left: 5px;
 }
+.weui-cell__imgs {
+  display: flex;
+  width: 79px;
+  height: 79px;
+  background-color: indianred;
+}
 .weui-cell__img {
   display: flex;
   width: 79px;
   height: 79px;
+}
+.weui-cell__img_count {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 0 2.5px;
+  text-align: center;
+  font-size: 34rpx;
+  color: #ffffff;
+  background-color: darkgray;
+  font-style: bold;
 }
 .list-item__content{
   display: flex;
