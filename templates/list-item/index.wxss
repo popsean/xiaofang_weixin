@@ -2,7 +2,14 @@
   display: flex;
   width: 100%;
   flex-direction: row;
-  background-color: cyan;
+  padding: 5px;
+  /* background-color: cyan; */
+}
+.top_marin{
+  margin-top: 5px;
+}
+.left_marin{
+  margin-left: 5px;
 }
 .weui-cell__img {
   display: flex;
@@ -19,7 +26,8 @@
   flex: 1;
   flex-direction: row;
   align-items: center; /* 必须有这一行，否则不会有省略号 */
-  background-color: green;
+  /* background-color: green; */
+  padding: 0 10px 0 10px;
 
 }
 .font-break {
@@ -31,10 +39,10 @@
   display: flex;
 
   /* width: 60px; */
-  padding: 0 10px 0 20px;
+  /* padding: 0 10px 0 20px; */
   /* flex:1; */
   align-items: center;
-  background-color: red;
+  /* background-color: red; */
 }
 
 /* .library-item__info-name image {

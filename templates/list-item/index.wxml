@@ -3,32 +3,29 @@
   <view class="weui-cells weui-cells_after-title list-item">
 
     <!--  左侧附件区域 -->
-    <image class="weui-cell__img"  src="../../images/test_icon.jpg" />
+    <image class="weui-cell__img"  src="{{item.img}}" />
 
     <!--  右侧内容区域 -->
     <view class="list-item__content">
 
       <view class="library-item__info">
-        <view class="library-item__info-name">
-          <text class="font-black-34 font-break">概要1234567890123456789012345678901234567890123456789012345678901234567890</text>
+        <view class="library-item__info-name ">
+          <text class="font-black-bold-34 font-break">{{item.desc}}</text>
         </view>
       </view>
-
-      <view class="library-item__info">
-        <view class="font-gray-26 ellipsis">区域: 正常</view>
-        <view class="font-gray-26 ellipsis">状态: 正常</view>
-        <view class="font-gray-26 ellipsis" style="margin-left: 20rpx;">隐患数: 2</view>
+      <view class="library-item__info top_marin">
+        <view class="font-black-30 ellipsis">日期: {{item.date}} </view>
       </view>
 
-      <view class="library-item__info">
-        <view class="font-gray-26 ellipsis">日期: xxxxx </view>
+      <view class="library-item__info top_marin">
+        <view class="font-gray-26 ellipsis">区域: {{item.area}}</view>
+        <view class="font-gray-26 ellipsis left_marin">状态: {{item.status}}</view>
+        <view class="font-gray-26 ellipsis left_marin" style="margin-left: 20rpx;">隐患数: {{item.subCount}} </view>
       </view>
-      <view class="library-item__info">
-        <view class="font-gray-26 ellipsis" >处理人: 张三</view>
+
+      <view class="library-item__info top_marin">
+        <view class="font-gray-26 ellipsis" >处理人: {{item.user}} </view>
       </view>
     </view>
-
   </view>
-
-
 </template>

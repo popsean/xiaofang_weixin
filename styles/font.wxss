@@ -6,6 +6,12 @@
   font-size:34rpx;
   color: #353535
 }
+.font-black-bold-34 {
+  font-weight:400;
+  font-size:34rpx;
+  color: #353535;
+  font-style: bold;
+}
 
 .font-32 {
   font-size: 32rpx;
