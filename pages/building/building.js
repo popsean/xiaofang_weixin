@@ -6,7 +6,8 @@ import { debounce } from '../../utils/utils'
  * 每次输入框focu、clear、input时都要重置searching为初始状态
  */
 const PAGE_SIZE = 10;
-var pageNo = 1;
+var searchPageNo = 1;
+var defaultPageNo = 1;
 const SEARCHING_INITIAL_CONFIG = {
   buildings: [], // 楼宇列表
   loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
@@ -165,7 +166,8 @@ function fetchData (type) {
   // })
 
   if (type === 'searching'){
-    return getBuildingsByName(keyword, {pageNo:1, size:PAGE_SIZE}).then(res =>{
+    defaultPageNo = 0;
+    return getBuildingsByName(keyword, {pageNo:searchPageNo, size:PAGE_SIZE}).then(res =>{
       const { isFocus, keyword: currentKeyword } = this.data
       if (!isFocus) {
         return Promise.reject(new Error('unfocus 丢弃响应结果'))
@@ -176,7 +178,8 @@ function fetchData (type) {
       return bizProcessData(res.data.result);
     })
   }else{
-    return getBuildings({pageNo:1, size:PAGE_SIZE}).then(res =>{
+    return getBuildings({pageNo:defaultPageNo, size:PAGE_SIZE}).then(res =>{
+      defaultPageNo++;
       return bizProcessData(res.data.result);
     })
   }
