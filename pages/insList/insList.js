@@ -233,7 +233,7 @@ function mapModel(ins, idx) {
     new Date(ins.createDate).getTime()
   );
   model.user = ins.createUserName
-  model.secure = (ins.state == '正常' ? 1:0)
+  model.secure = (ins.state == '异常-未解决' ? 0:1)
 
   console.log('mapModel : ' + JSON.stringify(model))
   return model;
