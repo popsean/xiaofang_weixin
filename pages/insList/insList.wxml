@@ -1,4 +1,4 @@
-<import src="/templates/list-item/index.wxml" />
+<import src="/templates/ins-list-item/index.wxml" />
 <!-- 
 <template wx:if="{{isFocus && keyword}}" is="building-list" data="{{...searching}}"></template>
 <template wx:else is="building-list" data="{{...default}}"></template> -->
@@ -32,7 +32,7 @@
 
 <view wx:if="{{dataList.length}}">
   <navigator wx:for="{{dataList}}" wx:key="{{item._id}}" hover-class="ui--active" bindtap="onClickLibraryItem">
-    <template is="list-item" data="{{...item}}"></template>
+    <template is="ins-list-item" data="{{...item}}"></template>
   </navigator>
 </view>
 <!-- 加载更多、暂无数据 -->

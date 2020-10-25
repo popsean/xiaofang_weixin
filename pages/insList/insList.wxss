@@ -1,4 +1,4 @@
-@import "/templates/list-item/index.wxss";
+@import "/templates/ins-list-item/index.wxss";
 
 .top_container{
   display: flex;

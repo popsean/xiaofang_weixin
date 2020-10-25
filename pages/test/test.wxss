@@ -1,2 +1,2 @@
 /* pages/test/test.wxss */
-@import "/templates/list-item/index.wxss"
+@import "/templates/ins-list-item/index.wxss"

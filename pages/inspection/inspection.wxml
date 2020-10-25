@@ -5,7 +5,7 @@
     <view class="weui-cell__hd weui-cell__hd_in-select-after">
       <view class="weui-label">巡检日期</view>
     </view>
-    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+    <view class="weui-cell__hd">
       <view class="weui-label">{{formatDate}}</view>
     </view>
   </view>
@@ -16,7 +16,7 @@
       <view class="weui-label">楼宇名称</view>
     </view>
     <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="xxx楼" bindinput="onInput" data-label="buildingName" />
+      <input class="weui-input" placeholder="{{buildinName}}" bindinput="onInput" data-label="buildingName" />
     </view>
   </view>
 

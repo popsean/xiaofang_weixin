@@ -113,6 +113,10 @@ Page({
     //   dataList:this.data.mockList,
     //   isNoData:false
     // })
+    console.log('onLoad bName:' +options.bName)
+    console.log('onLoad bID:' +options.bID)
+    this.data.buildingId = options.bID
+    this.data.buildingName = options.bName
     pageNo = 1;
     wx.showLoading({ title: '加载中', mask: true })
     this._fetchData(this.data.buildingId).then(res => {

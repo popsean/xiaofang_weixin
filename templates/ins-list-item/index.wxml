@@ -1,4 +1,4 @@
-<template name="list-item">
+<template name="ins-list-item">
 
   <view class="weui-cells weui-cells_after-title list-item">
 

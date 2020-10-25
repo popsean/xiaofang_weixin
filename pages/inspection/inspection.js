@@ -9,7 +9,8 @@ import { addInspection} from '../../apis/inspection'
 var app = getApp()
 var today = new Date();
 const MAX_IMGS = 9;
-var buildinID ='5c04f65600c4056ce4a3cc2c';
+// var buildinID ='5c04f65600c4056ce4a3cc2c';
+// var buildinName ='aaaa楼';
 var userName = 'zstest'
 var uid = '5f7e9b46098188e8052911c1'
 const NORMAL_DESC = '日常巡检并对现场人员进行消防安全提示'
@@ -24,6 +25,8 @@ Page({
     formatDate:formatDate(today),
     userID: '',
     createUserName: '',
+    buildinName: '',
+    buildinID:'',
     insStateIndex:0,
     insHideAdd: 0,
     insAttachImgs: [],
@@ -34,7 +37,7 @@ Page({
     ],
     inspectionInfo: {
       createDate: null,
-      buildingID: buildinID,
+      buildingID: '',
       createUserName: userName,
       userID: uid,
       specialID: '',
@@ -66,6 +69,14 @@ Page({
     onLoad: function (options) {
       this.data.inspectionInfo.createUserName = userName
       console.log('onLoad userName:' +userName)
+      console.log('onLoad bName:' +options.bName)
+      console.log('onLoad bID:' +options.bID)
+      // this.data.buildinID = options.bID
+      // this.data.buildinName = options.bName
+      this.setData({
+        buildinID:options.bID,
+        buildinName:options.bName
+      })
     },
 
     /**
