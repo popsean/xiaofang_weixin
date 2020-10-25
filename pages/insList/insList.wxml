@@ -5,35 +5,38 @@
 
 <sticky scroll-top="{{ scrollTop }}">
   <view class="top_container">
-    <text class="text-name">{{buildingName}}</text>
-    <text wx:if="{{unresolve > 0}}" class="text-warn ">异常未解决:{{unresolve}}</text>
-    <text wx:if="{{unresolve == 0}}" class="text-normal">一切正常</text>
-    <navigator class="nav" url="../inspection/inspection?bName={{buildingName}}&bID={{buildingId}}"
-      hover-class="weui-cell_active">
-      <text class="text-add">新增巡检</text>
-    </navigator>
+    <view class="top_row">
+      <text class="text-name">{{buildingName}}</text>
+    </view>
+    <view class="top_row top_margin">
+      <text wx:if="{{unresolve > 0}}" class="text-warn ">异常未解决:{{unresolve}}</text>
+      <text wx:if="{{unresolve == 0}}" class="text-normal">一切正常</text>
+      <navigator class="nav" url="../inspection/inspection?bName={{buildingName}}&bID={{buildingId}}"
+        hover-class="weui-cell_active">
+        <text class="text-add">新增巡检</text>
+      </navigator>
+    </view>
 
   </view>
   <view class="top_container" slot="sticky">
-    <text class="text-name">{{buildingName}}</text>
-    <text wx:if="{{unresolve > 0}}" class="text-warn ">异常未解决:{{unresolve}}</text>
-    <text wx:if="{{unresolve == 0}}" class="text-normal">一切正常</text>
-    <navigator class="nav" url="../inspection/inspection?bName={{buildingName}}&bID={{buildingId}}"
-      hover-class="weui-cell_active">
-      <text class="text-add">新增巡检</text>
-    </navigator>
+    <view class="top_row">
+      <text class="text-name">{{buildingName}}</text>
+    </view>
+    <view class="top_row top_margin">
+      <text wx:if="{{unresolve > 0}}" class="text-warn ">异常未解决:{{unresolve}}</text>
+      <text wx:if="{{unresolve == 0}}" class="text-normal">一切正常</text>
+      <navigator class="nav" url="../inspection/inspection?bName={{buildingName}}&bID={{buildingId}}"
+        hover-class="weui-cell_active">
+        <text class="text-add">新增巡检</text>
+      </navigator>
+    </view>
   </view>
 </sticky>
 
-<!-- <sticky scroll-top="{{ scrollTop }}">
-      <view class="sticky-header1">滚动页面，我会固定在顶部！</view>
-      <view slot="sticky" class="sticky-header1">滚动页面，我会固定在顶部！</view>
-    </sticky> -->
-
 <view wx:if="{{dataList.length}}">
-  <navigator wx:for="{{dataList}}" wx:key="{{item._id}}" hover-class="ui--active" bindtap="onClickLibraryItem">
-    <template is="ins-list-item" data="{{...item}}"></template>
-  </navigator>
+  <!-- <navigator wx:for="{{dataList}}" wx:key="{{item._id}}" hover-class="ui--active" bindtap="onClickLibraryItem"> -->
+    <template  wx:for="{{dataList}}" wx:key="{{item._id}}" is="ins-list-item" data="{{...item}}"></template>
+  <!-- </navigator> -->
 </view>
 <!-- 加载更多、暂无数据 -->
 <load-more status="{{loadMoreStatus}}"></load-more>
