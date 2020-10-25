@@ -1,11 +1,10 @@
-
 <!-- 楼宇列表，页面内必须引入load-more与no-data组件 -->
 <template name="building-list">
   <!-- 楼宇列表 -->
   <view wx:if="{{buildings.length}}" class="weui-cells weui-cells_after-title library-list">
-    <navigator wx:for="{{buildings}}" wx:key="{{item._id}}"  class="weui-cell" hover-class="ui--active" 
-    url="../../pages/insList/insList?bName={{item.buildingName}}&bID={{item._id}}"
-    bindtap="onClickLibraryItem">
+    <navigator wx:for="{{buildings}}" wx:key="{{item._id}}" class="weui-cell" hover-class="ui--active"
+      url="../../pages/insList/insList?bName={{item.buildingName}}&bID={{item._id}}" bindtap="onClickLibraryItem">
+
       <view class="library-item__info">
         <view class="library-item__info-name">
           <text class="font-black-34 ellipsis">{{item.buildingName}}</text>
@@ -23,9 +22,6 @@
           {{item.latestInspectionState}}
         </view>
       </view>
-      <!-- <view class="library-item__collection font-gray-26">
-        馆藏：{{item.total_num}} | 可借：<span class="{{item.available_num == 0 ? 'color-gray' : 'color-orange'}}">{{item.available_num}}</span>
-      </view> -->
       <view class="weui-cell__ft_in-access"></view>
     </navigator>
   </view>
