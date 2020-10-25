@@ -2,6 +2,16 @@
   display: none;
 }
 
+.building-item{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  /* background-color: cyan; */
+}
+
+.left_marin{
+  margin-left: 5px;
+}
 .library-item__info {
   display: flex;
   flex: auto;

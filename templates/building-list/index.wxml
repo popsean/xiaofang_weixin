@@ -1,28 +1,36 @@
 <!-- 楼宇列表，页面内必须引入load-more与no-data组件 -->
 <template name="building-list">
   <!-- 楼宇列表 -->
-  <view wx:if="{{buildings.length}}" class="weui-cells weui-cells_after-title library-list">
+  <view wx:if="{{buildings.length}}" class="weui-cells weui-cells_after-title library-list ">
     <navigator wx:for="{{buildings}}" wx:key="{{item._id}}" class="weui-cell" hover-class="ui--active"
       url="../../pages/insList/insList?bName={{item.buildingName}}&bID={{item._id}}" bindtap="onClickLibraryItem">
 
+      <view class="building-item">
       <view class="library-item__info">
         <view class="library-item__info-name">
           <text class="font-black-34 ellipsis">{{item.buildingName}}</text>
         </view>
-        <view class="font-gray-26 ellipsis" style="margin-left: 20rpx;">安全状况: </view>
-        <view wx:if="{{item.secure}}" class="font-gray-26 ellipsis">
-          {{item.latestSecurityState}}
-        </view>
-        <view wx:else class="font-gray-26 ellipsis" style="color:red;">
-          {{item.latestSecurityState}}
-        </view>
+      </view>
 
-        <view class="font-gray-26 ellipsis" style="margin-left: 20rpx;">本月: </view>
-        <view class="font-gray-26 ellipsis">
+      <view class="library-item__info">
+        <view class="font-gray-26 ellipsis">本月: </view>
+        <view class="font-gray-26 ellipsis left_marin">
           {{item.latestInspectionState}}
         </view>
       </view>
-      <view class="weui-cell__ft_in-access"></view>
+      
+      <view class="library-item__info">
+        <view class="font-gray-26 ellipsis">安全状况: </view>
+        <view wx:if="{{item.secure}}" class="font-gray-26 ellipsis left_marin">
+          {{item.latestSecurityState}}
+        </view>
+        <view wx:else class="font-gray-26 ellipsis left_marin" style="color:red;">
+          {{item.latestSecurityState}}
+        </view>
+      </view>
+
+      <!-- <view class="weui-cell__ft_in-access"></view> -->
+      </view>
     </navigator>
   </view>
   <!-- 加载更多、暂无数据 -->
