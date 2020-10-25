@@ -4,9 +4,9 @@
 
     <!--  左侧附件区域 -->
     <view class="weui-cell__imgs" catchtap="onPreviewImage" data-index="{{idx}}">
-    <image class="weui-cell__img"  src="{{img}}" />
-    <text wx:if="{{img_count > 1}}" class="weui-cell__img_count">{{img_count}}</text>
-  </view>
+      <image class="weui-cell__img" src="{{img}}" />
+      <text wx:if="{{img_count > 1}}" class="weui-cell__img_count">{{img_count}}</text>
+    </view>
 
     <!--  右侧内容区域 -->
     <view class="list-item__content">
@@ -21,13 +21,21 @@
       </view>
 
       <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">区域: {{area}}</view>
-        <view class="font-gray-26 ellipsis left_marin">状态: {{status}}</view>
-        <view class="font-gray-26 ellipsis left_marin" style="margin-left: 20rpx;">隐患数: {{subCount}} </view>
+        <!-- <view class="font-gray-26 ellipsis left_marin">状态: {{status}}</view> -->
+        <view wx:if="{{secure}}" class="font-gray-26 ellipsis">状态: {{status}}</view>
+        <view wx:else class="font-gray-26 ellipsis" style="color:red;">状态: {{status}}</view>
       </view>
 
       <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis" >处理人: {{user}} </view>
+        <view class="font-gray-26 ellipsis">隐患数: {{subCount}} </view>
+      </view>
+
+      <view class="library-item__info top_marin">
+        <view class="font-gray-26 ellipsis">区域: {{area}}</view>
+      </view>
+
+      <view class="library-item__info top_marin">
+        <view class="font-gray-26 ellipsis">处理人: {{user}} </view>
       </view>
     </view>
   </view>

@@ -122,6 +122,8 @@ Page({
     this._fetchData(this.data.buildingId).then(res => {
       this.setData({
         dataList: res.list,
+        buildingName:options.bName,
+        buildingID:options.bID,
         unresolve:res.unresolve,
         isNoData: res.list.length === 0
       })
@@ -231,6 +233,7 @@ function mapModel(ins, idx) {
     new Date(ins.createDate).getTime()
   );
   model.user = ins.createUserName
+  model.secure = (ins.state == '正常' ? 1:0)
 
   console.log('mapModel : ' + JSON.stringify(model))
   return model;
