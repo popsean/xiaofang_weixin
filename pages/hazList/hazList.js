@@ -19,7 +19,7 @@ Page({
 
     scrollTop: 0,
     eventInfo: {},
-    buildingName:'',
+    buildingName: '',
     insId: '5f8bedc294192dabab9bf159',
     unresolved: 1,
     totalNum: 0,
@@ -33,7 +33,7 @@ Page({
       area: 'aaa',
       status: 'bbb',
       reviewCount: '3',
-      reviewDate:'2020-10-23',
+      reviewDate: '2020-10-23',
       createDate: '2020-10-23',
       user: 'me'
 
@@ -45,7 +45,7 @@ Page({
       status: 'bbb',
       reviewCount: '3',
       createDate: '2020-10-23',
-      reviewDate:'2020-10-23',
+      reviewDate: '2020-10-23',
       user: 'me'
     },
     {
@@ -56,7 +56,7 @@ Page({
       status: 'bbb',
       reviewCount: '3',
       createDate: '2020-10-23',
-      reviewDate:'2020-10-23',
+      reviewDate: '2020-10-23',
       user: 'me'
     }, {
       _id: 2,
@@ -66,7 +66,7 @@ Page({
       status: 'bbb',
       reviewCount: '3',
       createDate: '2020-10-23',
-      reviewDate:'2020-10-23',
+      reviewDate: '2020-10-23',
       user: 'me'
     }, {
       _id: 2,
@@ -76,7 +76,7 @@ Page({
       status: 'bbb',
       reviewCount: '3',
       createDate: '2020-10-23',
-      reviewDate:'2020-10-23',
+      reviewDate: '2020-10-23',
       user: 'me'
     }, {
       _id: 2,
@@ -86,7 +86,7 @@ Page({
       status: 'bbb',
       reviewCount: '3',
       createDate: '2020-10-23',
-      reviewDate:'2020-10-23',
+      reviewDate: '2020-10-23',
       user: 'me'
     }, {
       _id: 2,
@@ -96,7 +96,7 @@ Page({
       status: 'bbb',
       reviewCount: '3',
       createDate: '2020-10-23',
-      reviewDate:'2020-10-23',
+      reviewDate: '2020-10-23',
       user: 'me'
     },
     {
@@ -107,7 +107,7 @@ Page({
       status: 'bbb',
       reviewCount: '3',
       createDate: '2020-10-23',
-      reviewDate:'2020-10-23',
+      reviewDate: '2020-10-23',
       user: 'me'
     }
     ],
@@ -124,8 +124,8 @@ Page({
     //   totalNum:2
     // })
     // wx.hideLoading();
-    console.log('hazardlist onLoad insId:' +options.id)
-    this.data.insId= options.id
+    console.log('hazardlist onLoad insId:' + options.id)
+    this.data.insId = options.id
     pageNo = 1;
     wx.showLoading({ title: '加载中', mask: true })
     this._fetchData(this.data.insId).then(res => {
@@ -133,8 +133,8 @@ Page({
         insId: options.id,
         dataList: res.list,
         buildingName: res.list[0].buildingName,
-        totalNum:res.totalNum,
-        unresolved:res.unresolved,
+        totalNum: res.totalNum,
+        unresolved: res.unresolved,
         isNoData: res.list.length === 0
       })
     }).catch(() => {
@@ -143,11 +143,11 @@ Page({
   },
 
   onPageScroll: function (e) {
-    this.setData({scrollTop: e.scrollTop})
+    this.setData({ scrollTop: e.scrollTop })
   },
 
   onSticky: function (e) {
-    this.setData({eventInfo: e.detail})
+    this.setData({ eventInfo: e.detail })
   },
 
   onReachBottom: function () {
@@ -211,7 +211,7 @@ function fetchData(id) {
 }
 
 function bizProcessData(data) {
-  let result= {}
+  let result = {}
   let list = []
   console.log('bizProcessData:' + data.result.length)
   // console.log(' data.unresolvedHazs:' + JSON.stringify(data))
@@ -249,10 +249,10 @@ function mapModel(haz, idx) {
   model.createDate = turntoDate(
     new Date(haz.createDate).getTime()
   );
-  if (haz.reviewDate){
-  model.reviewDate = turntoDate(
-    new Date(haz.reviewDate).getTime()
-  );
+  if (haz.reviewDate) {
+    model.reviewDate = turntoDate(
+      new Date(haz.reviewDate).getTime()
+    );
   }
   model.user = haz.createUserName
 
