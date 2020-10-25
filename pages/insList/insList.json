@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "巡检",
+  "navigationBarTitleText": "巡检列表",
   "usingComponents":
   {
     "load-more": "/components/load-more/index",

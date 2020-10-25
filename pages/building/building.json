@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "楼宇",
+  "navigationBarTitleText": "楼宇列表",
   "usingComponents":
   {
     "search-bar": "/components/search-bar/index",

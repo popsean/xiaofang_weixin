@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "隐患",
+  "navigationBarTitleText": "隐患列表",
   "usingComponents":
   {
     "load-more": "/components/load-more/index",
