@@ -249,9 +249,11 @@ function mapModel(haz, idx) {
   model.createDate = turntoDate(
     new Date(haz.createDate).getTime()
   );
+  if (haz.reviewDate){
   model.reviewDate = turntoDate(
     new Date(haz.reviewDate).getTime()
   );
+  }
   model.user = haz.createUserName
 
   console.log('mapModel : ' + JSON.stringify(model))

@@ -17,10 +17,14 @@
         </view>
       </view>
       <view class="library-item__info top_marin">
-        <view class="font-black-30 ellipsis">隐患日期: {{creatDate}} </view>
+        <view class="font-black-30 ellipsis">隐患日期: {{createDate}} </view>
       </view>
       <view class="library-item__info top_marin">
-        <view class="font-black-30 ellipsis">下次回查日期: {{reviewDate}} </view>
+        <view class="font-gray-26 ellipsis">状态: {{status}}</view>
+      </view>
+
+      <view class="library-item__info top_marin">
+        <view class="font-gray-26 ellipsis">下次回查日期: {{reviewDate}} </view>
       </view>
 
       <view class="library-item__info top_marin">
@@ -29,11 +33,6 @@
 
       <view class="library-item__info top_marin">
         <view class="font-gray-26 ellipsis">区域: {{area}}</view>
-      </view>
-
-      <view class="library-item__info top_marin">
-        <view wx:if="{{1}}" class="font-gray-26 ellipsis">状态: {{status}}</view>
-        <view wx:else class="font-gray-26 ellipsis" style="color:red;">状态: {{status}}</view>
       </view>
 
       <view class="library-item__info top_marin">
