@@ -1,0 +1,70 @@
+.list-item {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  padding: 5px;
+  /* background-color: cyan; */
+}
+.top_marin{
+  margin-top: 5px;
+}
+.left_marin{
+  margin-left: 5px;
+}
+.weui-cell__imgs {
+  display: flex;
+  width: 79px;
+  height: 79px;
+  /* background-color: indianred; */
+}
+.weui-cell__img {
+  display: flex;
+  width: 79px;
+  height: 79px;
+}
+.weui-cell__img_count {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 0 2.5px;
+  text-align: center;
+  font-size: 34rpx;
+  color: #ffffff;
+  background-color: darkgray;
+  font-style: bold;
+}
+.list-item__content{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.library-item__info {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center; /* 必须有这一行，否则不会有省略号 */
+  /* background-color: green; */
+  padding: 0 10px 0 10px;
+
+}
+.font-break {
+  word-break:break-all;
+}
+.library-item__info-name {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+
+  /* width: 60px; */
+  /* padding: 0 10px 0 20px; */
+  /* flex:1; */
+  align-items: center;
+  /* background-color: red; */
+}
+
+/* .library-item__info-name image {
+  flex: 0 0 40rpx;
+  width: 30rpx;
+  height: 30rpx;
+  vertical-align: middle;
+} */

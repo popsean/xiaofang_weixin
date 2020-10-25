@@ -9,6 +9,8 @@
     </view>
 
     <!--  右侧内容区域 -->
+    <navigator url="../../pages/hazList/hazList?id={{_id}}"
+      hover-class="weui-cell_active">
     <view class="list-item__content">
 
       <view class="library-item__info">
@@ -38,5 +40,6 @@
         <view class="font-gray-26 ellipsis">处理人: {{user}} </view>
       </view>
     </view>
+    </navigator>
   </view>
 </template>

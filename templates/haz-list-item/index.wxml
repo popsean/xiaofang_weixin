@@ -1,0 +1,38 @@
+<template name="haz-list-item">
+
+  <view class="weui-cells weui-cells_after-title list-item">
+
+    <!--  左侧附件区域 -->
+    <view class="weui-cell__imgs" catchtap="onPreviewImage" data-index="{{idx}}">
+    <image class="weui-cell__img"  src="{{img}}" />
+    <text wx:if="{{img_count > 1}}" class="weui-cell__img_count">{{img_count}}</text>
+  </view>
+
+    <!--  右侧内容区域 -->
+    <view class="list-item__content">
+
+      <view class="library-item__info">
+        <view class="library-item__info-name ">
+          <text class="font-black-bold-34 font-break">{{desc}}</text>
+        </view>
+      </view>
+      <view class="library-item__info top_marin">
+        <view class="font-black-30 ellipsis">隐患日期: {{date}} </view>
+      </view>
+
+      <view class="library-item__info top_marin">
+        <view class="font-black-30 ellipsis">下次回查日期: {{reviewDate}} </view>
+      </view>
+
+      <view class="library-item__info top_marin">
+        <view class="font-gray-26 ellipsis">区域: {{area}}</view>
+        <view class="font-gray-26 ellipsis left_marin">状态: {{status}}</view>
+        <view class="font-gray-26 ellipsis left_marin" style="margin-left: 20rpx;">回查次数: {{reviewCount}} </view>
+      </view>
+
+      <view class="library-item__info top_marin">
+        <view class="font-gray-26 ellipsis" >处理人: {{user}} </view>
+      </view>
+    </view>
+  </view>
+</template>
