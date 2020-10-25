@@ -18,6 +18,13 @@
           {{item.latestInspectionState}}
         </view>
       </view>
+
+      <view class="library-item__info">
+        <view class="font-gray-26 ellipsis">上次巡检日期: </view>
+        <view class="font-gray-26 ellipsis left_marin">
+          {{item.latestInspectionDate}}
+        </view>
+      </view>
       
       <view class="library-item__info">
         <view class="font-gray-26 ellipsis">安全状况: </view>

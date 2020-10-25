@@ -1,5 +1,6 @@
 import { getBuildingsByName,getBuildings } from '../../apis/building'
 import { debounce } from '../../utils/utils'
+import { turntoDate } from '../../utils/turnTime'
 
 /**
  * searching属性初始值
@@ -191,6 +192,15 @@ function bizProcessData(buildings){
       building.secure = 0
     }else{
       building.secure = 1
+    }
+   
+    if (!building.latestInspectionState) {
+      building.latestInspectionState = '未巡检';
+    }
+    if (building.latestInspectionDate) {
+      building.latestInspectionDate = turntoDate(
+        new Date(building.latestInspectionDate).getTime()
+      );
     }
     console.log('building:'+building.buildingName + ',' + building.latestSecurityState +',' +building.secure)
   })
