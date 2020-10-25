@@ -34,7 +34,7 @@ Page({
       status: 'bbb',
       reviewCount: '3',
       reviewDate:'2020-10-23',
-      date: '2020-10-23',
+      createDate: '2020-10-23',
       user: 'me'
 
     }, {
@@ -44,7 +44,7 @@ Page({
       area: 'aaa',
       status: 'bbb',
       reviewCount: '3',
-      date: '2020-10-23',
+      createDate: '2020-10-23',
       reviewDate:'2020-10-23',
       user: 'me'
     },
@@ -55,7 +55,7 @@ Page({
       area: 'aaa',
       status: 'bbb',
       reviewCount: '3',
-      date: '2020-10-23',
+      createDate: '2020-10-23',
       reviewDate:'2020-10-23',
       user: 'me'
     }, {
@@ -65,7 +65,7 @@ Page({
       area: 'aaa',
       status: 'bbb',
       reviewCount: '3',
-      date: '2020-10-23',
+      createDate: '2020-10-23',
       reviewDate:'2020-10-23',
       user: 'me'
     }, {
@@ -75,7 +75,7 @@ Page({
       area: 'aaa',
       status: 'bbb',
       reviewCount: '3',
-      date: '2020-10-23',
+      createDate: '2020-10-23',
       reviewDate:'2020-10-23',
       user: 'me'
     }, {
@@ -85,7 +85,7 @@ Page({
       area: 'aaa',
       status: 'bbb',
       reviewCount: '3',
-      date: '2020-10-23',
+      createDate: '2020-10-23',
       reviewDate:'2020-10-23',
       user: 'me'
     }, {
@@ -95,7 +95,7 @@ Page({
       area: 'aaa',
       status: 'bbb',
       reviewCount: '3',
-      date: '2020-10-23',
+      createDate: '2020-10-23',
       reviewDate:'2020-10-23',
       user: 'me'
     },
@@ -106,7 +106,7 @@ Page({
       area: 'aaa',
       status: 'bbb',
       reviewCount: '3',
-      date: '2020-10-23',
+      createDate: '2020-10-23',
       reviewDate:'2020-10-23',
       user: 'me'
     }
@@ -246,8 +246,11 @@ function mapModel(haz, idx) {
   model.area = haz.area
   model.status = haz.state
   model.reviewCount = haz.reviewCount
-  model.date = turntoDate(
+  model.createDate = turntoDate(
     new Date(haz.createDate).getTime()
+  );
+  model.reviewDate = turntoDate(
+    new Date(haz.reviewDate).getTime()
   );
   model.user = haz.createUserName
 
