@@ -16,7 +16,11 @@ var Promise = require('../utils/es6-promise')
 // 远程服务器
 // export const BASE_URL = 'https://www.easy-mock.com/mock/5aacc9a1d3f6bd35dfb4be65/api/v1'
 const DEV_BASE_URL = 'http://127.0.0.1:3001/fullStack/'
+const PRODUCT_BASE_URL = 'http://39.105.104.191/proxy/fullStack/'
+const HTTPS_PRODUCT_BASE_URL = 'https://www.bjtuxf.cn/proxy/fullStack/'
 export const BASE_URL = DEV_BASE_URL
+// export const BASE_URL = PRODUCT_BASE_URL
+// export const BASE_URL = HTTPS_PRODUCT_BASE_URL
 
 const DEV_UPLOAD_FILE_DOMAIN="http://127.0.0.1:3001/fullStack/uploadFiles"
 export const DOMAIN_NAME = DEV_UPLOAD_FILE_DOMAIN;

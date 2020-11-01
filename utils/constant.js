@@ -18,6 +18,15 @@ export const INSPTECTION_EXCPTION_UNRESOLVE = '异常-未解决'
 export const INSPTECTION_EXCPTION_RESOLVED = '异常-已解决'
 
 /**
+ * 
+ * 隐患状态
+ */
+export const HAZARD_RESOLVED = '已解决'
+export const HAZARD_RECTIFICATION_ASAP= '立即整改'
+export const HAZARD_RECTIFICATION_PENDING=  '限期整改'
+export const HAZARD_CUSTOM = '自定义'
+
+/**
  *  权限,Int值, 默认 1
   crud: 1111
   只读: 1

@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/inspection/inspection",
+    "pages/building/building",
+    "pages/hazList/hazList",
     "pages/insList/insList",
     "pages/test/test",
-    "pages/building/building",
     "pages/index/index",
-    "pages/inspection/inspection",
     "pages/login/login",
     "pages/home/home"
   ],

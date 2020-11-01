@@ -11,10 +11,10 @@
     <view class="top_row top_margin">
       <text wx:if="{{unresolve > 0}}" class="text-warn ">异常未解决:{{unresolve}}</text>
       <text wx:if="{{unresolve == 0}}" class="text-normal">一切正常</text>
-      <navigator class="nav" url="../inspection/inspection?bName={{buildingName}}&bID={{buildingId}}"
+      <!-- <navigator class="nav" url="../inspection/inspection?bName={{buildingName}}&bID={{buildingId}}"
         hover-class="weui-cell_active">
         <text class="text-add">新增巡检</text>
-      </navigator>
+      </navigator> -->
     </view>
 
   </view>

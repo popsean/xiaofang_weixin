@@ -1,0 +1,59 @@
+<template name="haz-add">
+  <!-- 区域 -->
+  <view class="haz-add_root">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">隐患区域 {{haz_idx}}</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput="onHazInput" data-index="{{haz_idx}}" data-label="area" />
+      </view>
+    </view>
+
+    <!--  隐患状态 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">隐患状态</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="onHazSelect" mode="selector" value="{{statusIndex}}" range="{{hazStateList}}" data-index="{{haz_idx}}" >
+          <view class="weui-select weui-select_in-select-after">{{status}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 隐患概要 -->
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">隐患概要</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" value="{{inspectionInfo.description}}" bindinput="onHazInput" data-index="{{haz_idx}}"data-label="description" />
+      </view>
+    </view>
+
+    <!-- 上传附件 -->
+    <!-- <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <view class="weui-uploader">
+          <view class="weui-uploader__hd">
+            <view class="weui-uploader__title">隐患附件</view>
+          </view>
+
+          <view class="weui-uploader__bd">
+            <view class="weui-uploader__files">
+              <view class="weui-uploader__file" wx:for="{{insAttachImgs}}" wx:for-index="idx">
+                <image class="weui-uploader__img" src="{{item}}" catchtap="onPreviewImage" data-index="{{idx}}" />
+                <icon size="25" type="cancel" data-index="{{idx}}" catchtap="onDeleteImage"></icon>
+              </view>
+              <view class="weui-uploader__input-box" style='display:{{hideAdd?"none":"block"}}'>
+                <view class="weui-uploader__input" bindtap="onChooseImage" data-type="front"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view> -->
+  </view>
+
+</template>

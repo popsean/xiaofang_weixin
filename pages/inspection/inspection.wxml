@@ -1,3 +1,4 @@
+<import src="/templates/haz-add/index" />
 <view class="weui-cells">
 
   <!-- 巡检日期 -->
@@ -63,7 +64,7 @@
         <view class="weui-uploader__bd">
           <view class="weui-uploader__files">
             <view class="weui-uploader__file" wx:for="{{insAttachImgs}}" wx:for-index="idx">
-              <image class="weui-uploader__img" src="{{item}}" catchtap="onPreviewImage" data-index="{{idx}}"/>
+              <image class="weui-uploader__img" src="{{item}}" catchtap="onPreviewImage" data-index="{{idx}}" />
               <icon size="25" type="cancel" data-index="{{idx}}" catchtap="onDeleteImage"></icon>
             </view>
             <view class="weui-uploader__input-box" style='display:{{hideAdd?"none":"block"}}'>
@@ -74,7 +75,20 @@
       </view>
     </view>
   </view>
-  
+
+  <view  wx:for="{{hazards}}" wx:for-item="haz_item"  wx:for-index="haz_idx" class="add-haz_content">
+    <view class="add-haz_hd">
+      <view>隐患: {{haz_idx}}</view>
+      <button class="add-haz_hd_btn" type="warn" size="mini" catchtap="onDelHaz" data-index="{{haz_idx}}">删除</button>
+    </view>
+    <template is="haz-add" data="{{haz_idx, hazStateList,...haz_item}}"></template>
+  </view>
+
+  <view class="weui-btn-area">
+  <button class="weui-btn" type="default" size="mini" catchtap="onAddHaz">新增隐患</button>
+</view>
+
+  <!-- 结束标签 -->
 </view>
 
 <view class="weui-btn-area">

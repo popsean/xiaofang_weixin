@@ -1,9 +1,26 @@
+@import "/templates/haz-add/index.wxss";
+
 page {
   padding-bottom: 25px;
 }
 
 .weui-uploader__file {
   position: relative;
+}
+.add-haz_content{
+  flex-direction: column;
+  /* background-color: lightgreen; */
+}
+.add-haz_hd{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 15px;
+    background-color: lightgrey;
+}
+.add-haz_hd_btn{
+  right: 0;
+  margin-right: 15px;
 }
 
 icon {

@@ -9,8 +9,8 @@ import { addInspection} from '../../apis/inspection'
 var app = getApp()
 var today = new Date();
 const MAX_IMGS = 9;
-// var buildinID ='5c04f65600c4056ce4a3cc2c';
-// var buildinName ='aaaa楼';
+const MOCK_BID ='5c04f64b00c4056ce4a3cc2b';
+const MOCK_BNAME ='思源楼';
 var userName = 'zstest'
 var uid = '5f7e9b46098188e8052911c1'
 const NORMAL_DESC = '日常巡检并对现场人员进行消防安全提示'
@@ -25,8 +25,8 @@ Page({
     formatDate:formatDate(today),
     userID: '',
     createUserName: '',
-    buildinName: '',
-    buildinID:'',
+    buildingName: MOCK_BNAME,
+    buildingID: MOCK_BID,
     insStateIndex:0,
     insHideAdd: 0,
     insAttachImgs: [],
@@ -37,23 +37,37 @@ Page({
     ],
     inspectionInfo: {
       createDate: null,
-      buildingID: '',
+      buildingID: MOCK_BID,
+      buildingName: MOCK_BNAME,
       createUserName: userName,
       userID: uid,
-      specialID: '',
       area: '',
       state: INSPTECTION_NORMAL,
       description: NORMAL_DESC,
-      attachImgs:[]
+      attachImgs:[],
+      hazards:[],
+      hazardsCount:0
     },
+    newHazIndex: 1,
+    hazards:[],
+    hazStateList: [
+      // HAZARD_RESOLVED, // '已解决',
+      // HAZARD_RECTIFICATION_ASAP, // 
+      '立即整改',
+      // HAZARD_RECTIFICATION_PENDING, // 
+      '限期整改',
+      // HAZARD_CUSTOM // 
+      '自定义'
+    ],
     hazardInfo: {
-      // createDate: '',
-      // buildingID: '',
-      // specialID: '',
+      createDate: null,
+      buildingID: MOCK_BID,
+      buildingName: MOCK_BNAME,
+      createUserName: userName,
+      userID: uid,
       area: '',
       description: '',
       detail: '',
-      createDate: today,
       hazardState: '',
       customState: '',
       reviewDate: '',
@@ -71,12 +85,16 @@ Page({
       console.log('onLoad userName:' +userName)
       console.log('onLoad bName:' +options.bName)
       console.log('onLoad bID:' +options.bID)
-      // this.data.buildinID = options.bID
-      // this.data.buildinName = options.bName
-      this.setData({
-        buildinID:options.bID,
-        buildinName:options.bName
-      })
+      // this.data.buildingID = options.bID
+      // this.data.buildingName = options.bName
+      // this.setData({
+      //   buildingID:options.bID,
+      //   buildingName:options.bName
+      // })
+      // this.setData({
+      //   buildingID: MOCK_BID,
+      //   buildingName: MOCK_BNAME
+      // })
     },
 
     /**
@@ -116,6 +134,39 @@ Page({
       console.log('insInfo: '+JSON.stringify(this.data.inspectionInfo))
     },
 
+    onHazInput: function (e) {
+      var params = {}
+      let label = e.currentTarget.dataset.label
+      let index = e.currentTarget.dataset.index
+      // params['inspectionInfo.' + label] = e.detail.value
+      params['hazards[' +index + '].'  + label] = e.detail.value
+      this.setData(params)
+      console.log('onHazInput: params=' + JSON.stringify(params))
+      console.log('hazinfo: '+JSON.stringify(this.data.hazards))
+    },
+
+    onAddHaz: function(e){
+      var newHazard = this._initHazrd();
+      // newHazard.index = this.data.newHazIndex;
+      // newHazard.index = this.data.hazards.length;
+      // newHazard.name = '隐患' + newHazard.index;
+      let haz_list = this.data.hazards
+      haz_list.push(newHazard)
+      this.setData({
+        hazards: haz_list,
+        // newHazIndex: newHazard.index +1
+      })
+    },
+    onDelHaz: function(e){
+      let index = e.currentTarget.dataset.index
+      console.log('onDelHaz: index=' + JSON.stringify(e.currentTarget.dataset.index))
+      let haz_list = this.data.hazards
+      haz_list.splice(index, 1); //数组中删除index元素
+      this.setData({
+        hazards: haz_list
+      })
+    },
+
     onInsSelect: function (e) {
       var params = {}
       let label = e.currentTarget.dataset.label
@@ -128,6 +179,21 @@ Page({
       }
       this.setData(params)
       console.log('onInsSelect: params=' + JSON.stringify(params))
+    },
+    onHazSelect: function (e) {
+      var params = {}
+      let index = e.currentTarget.dataset.index
+      // params.insStateIndex= e.detail.value
+      let selectIndex = e.detail.value
+      params['hazards[' +index + '].'  + 'status'] = this.data.hazStateList[selectIndex]
+      // params['inspectionInfo.' + 'state'] = this.data.insStateList[params.insStateIndex]
+      // if (params['inspectionInfo.' + 'state'] == INSPTECTION_NORMAL){
+      //   params['inspectionInfo.' + 'description'] = NORMAL_DESC
+      // } else{
+      //   params['inspectionInfo.' + 'description'] = ''
+      // }
+      this.setData(params)
+      console.log('onHazSelect: params=' + JSON.stringify(params))
     },
 
     onChooseImage: function (e) {
@@ -186,25 +252,32 @@ Page({
     },
     
     onSubmit: function () {
+      console.log('onSumbit: ' + JSON.stringify(this.data))
       // 先上传身份证照片，获取图片url，再上传用户信息
-      this._uploadIdCardImgs().then(this._updateInsInfo).then(res=>{
-        wx.showToast({title: '创建巡检成功', mask: true})
-        NB_TIMER = setTimeout(() => wx.navigateBack(), 1000)
+      this._uploadAttachedImgs().then(this._updateInsInfo).then(res=>{
+        console.log('onSubmit: res='+ JSON.stringify(res))
+        if (res.data.code == 0){
+         wx.showToast({title: '创建巡检成功', mask: true})
+         NB_TIMER = setTimeout(() => wx.navigateBack(), 1000)
+        }else{
+          wx.showToast({title: res.data.message, mask: true, icon:'none'})
+        }
+        
       }).
       catch(() => wx.hideLoading());
     },
 
     /**
-   * 上传身份证图片，返回图片url数组
+   * 上传附件图片，返回图片url数组
    */
-  _uploadIdCardImgs: function () {
+  _uploadAttachedImgs: function () {
   let imgsToUpload = this.data.insAttachImgs;
 
     // 如果是刚刚选择的本地照片，需要上传
     // 如果是服务器url，那么直接返回
     var upload = function (imgPath) {
       return new Promise((resolve, reject) => {
-        console.log('_uploadIdCardImgs: imgPath='+imgPath)
+        console.log('_uploadAttachedImgs: imgPath='+imgPath)
       
         if (imgPath.indexOf(DOMAIN_NAME) === -1) {
           wx.showLoading({title: '上传图片中', mask: true})
@@ -212,7 +285,7 @@ Page({
             .then(res => {
             let files = {url: JSON.parse(res).optImgSrc, status:'finished'}
             resolve(files)
-            console.log('_uploadIdCardImgs: sucess='+ JSON.parse(files))
+            console.log('_uploadAttachedImgs: sucess='+ JSON.stringify(files))
             })
             .catch(err => reject(err))
         } else {
@@ -226,9 +299,9 @@ Page({
       promises.push(upload(url));
     })
 
-    console.log('_uploadIdCardImgs promiseS : ' + promises.length)
+    console.log('_uploadAttachedImgs promiseS : ' + promises.length)
     return Promise.all(promises).then(serverPaths =>{
-      console.log('_uploadIdCardImgs upload : serverPaths='+ JSON.stringify(serverPaths))
+      console.log('_uploadAttachedImgs upload : serverPaths='+ JSON.stringify(serverPaths))
       return serverPaths;
     })
   },
@@ -238,12 +311,34 @@ Page({
    */
   _updateInsInfo: function (imgPaths) {
     wx.showLoading({title: '上传巡检中', mask: true})
-    this.data.inspectionInfo.createDate = new Date()
+    this.data.inspectionInfo.createDate = new Date().toString();
     this.data.inspectionInfo.attachImgs = imgPaths
     console.log('_updateInsInfo: '+JSON.stringify(this.data.inspectionInfo))
+    console.log('_updateInsInfoDate: '+ this.data.inspectionInfo.createDate)
     return addInspection(this.data.inspectionInfo).then(res => {
       console.log('_updateInsInfo result: '+JSON.stringify(res))
+      return res;
     })
+  },
+
+  _initHazrd() {
+    return {
+      // createDate: '',
+      // buildingName: this.modal.buildingName,
+      area: '',
+      description: '',
+      detail: '',
+      createDate: '',
+      hazardState: '',
+      customState: '',
+      reviewDate: '',
+      index: 0,
+      status: '',
+      statusIndex: 0,
+      attachImgs: [],
+      userID: uid,
+      createUserName: userName
+    };
   },
 
   })

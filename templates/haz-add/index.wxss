@@ -1,0 +1,9 @@
+.haz-add_root{
+  display: flex;
+  flex-direction: column;
+  /* background-color: lightgray; */
+  border-width: 2px;
+  border-color: lightgray;
+  /* margin-left: 15px; */
+  /* margin-right: 15px; */
+}
