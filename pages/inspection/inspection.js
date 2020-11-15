@@ -192,7 +192,7 @@ Page({
 
   onReviewDate: function (e) {
     var params = {}
-    let {type, index} = e.currentTarget.dataset
+    let { type, index } = e.currentTarget.dataset
     params['hazards[' + index + '].' + type] = e.detail.value
     this.setData(params)
     console.log('onReviewDate: params=' + JSON.stringify(params))
@@ -232,6 +232,49 @@ Page({
     })
   },
 
+  onHazChooseImage: function (e) {
+    const { hazindex } = e.currentTarget.dataset
+    console.log('onHazChooseImage: hazIdx=' + hazindex)
+
+    Promisify(wx.chooseImage)({
+      count: MAX_IMGS,
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'] // 可以指定来源是相册还是相机，默认二者都有
+    }).then(res => {
+      // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+      if (res.tempFilePaths.length > 0) {
+        if (res.tempFilePaths.length == MAX_IMGS) {
+          this.setData({
+            insHideAdd: 1
+          })
+        } else {
+          this.setData({
+            insHideAdd: 0
+          })
+        }
+
+        let imgs = this.data.hazards[hazindex].uploadImgs;
+        console.log('onHazChooseImage: tempFilePaths=' + JSON.stringify(res.tempFilePaths))
+        console.log('onHazChooseImage: imgs=' + JSON.stringify(imgs))
+        for (let i = 0; i < res.tempFilePaths.length; i++) {
+          imgs.push(res.tempFilePaths[i])
+        }
+        console.log('onHazChooseImage: imgs=' + JSON.stringify(imgs))
+        console.log('onHazChooseImage: 22 hazindex=' + hazindex)
+        var params = {}
+        params = this.data.hazards
+        params[hazindex].uploadImgs = imgs
+        this.setData({
+          hazards: params
+        })
+
+        // params['hazards[' + hazindex + '].' + uploadImgs] = imgs
+        // this.setData(params)
+        console.log('onHazChooseImage: params=' + JSON.stringify(this.data.hazards[hazindex]))
+      }
+
+    })
+  },
   onPreviewImage: function (e) {
     let index = e.currentTarget.dataset.index
     console.log('onPreviewImage: lable=' + JSON.stringify(e.currentTarget.dataset))
@@ -241,6 +284,34 @@ Page({
       // l需要预览的图片http链接列表，filter过滤空ur
       urls: this.data.insAttachImgs
     })
+  },
+
+  onHazPreviewImage: function (e) {
+    const { hazindex, imgindex } = e.currentTarget.dataset
+    console.log('onHazPreviewImage: hazIdx=' + hazindex + ', imgIdx=' + imgindex)
+    wx.previewImage({
+      // 当前显示图片的http链接
+      current: this.data.hazards[hazindex].uploadImgs[imgindex],
+      // l需要预览的图片http链接列表，filter过滤空ur
+      urls: this.data.hazards[hazindex].uploadImgs
+    })
+  },
+
+
+  onHazDeleteImage: function (e) {
+    const { hazindex, imgindex } = e.currentTarget.dataset
+    console.log('onHazDeleteImage: hazIdx=' + hazindex + ', imgIdx=' + imgindex)
+
+    let imgs = this.data.hazards[hazindex].uploadImgs
+    imgs.splice(imgindex, 1); //数组中删除index元素
+
+    var params = {}
+    params = this.data.hazards
+    params[hazindex].uploadImgs = imgs
+    this.setData({
+      hazards: params
+    })
+    console.log('onHazDeleteImage: params=' + JSON.stringify(this.data.hazards[hazindex]))
   },
 
   onDeleteImage: function (e) {
@@ -255,12 +326,12 @@ Page({
 
   onSubmit: function () {
     console.log('onSumbit: ' + JSON.stringify(this.data))
-    
 
-    if (this.data.inspectionInfo.state == INSPTECTION_EXCPTION_UNRESOLVE 
+
+    if (this.data.inspectionInfo.state == INSPTECTION_EXCPTION_UNRESOLVE
       && this.data.hazards.length == 0) {
-        wx.showToast({ title: '巡检异常必须添加对应隐患', mask: true, icon: 'none'})
-        return;
+      wx.showToast({ title: '巡检异常必须添加对应隐患', mask: true, icon: 'none' })
+      return;
     }
 
     // 先上传身照片，获取图片url，再上传巡检信息
@@ -350,7 +421,8 @@ Page({
       statusIndex: 0,
       attachImgs: [],
       userID: uid,
-      createUserName: userName
+      createUserName: userName,
+      uploadImgs: [],
     };
   },
 

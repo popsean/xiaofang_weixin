@@ -23,20 +23,6 @@
       </view>
     </view>
 
-    <!-- 回查日期 -->
-    <view class="weui-cell weui-cell_select">
-      <view class="weui-cell__hd weui-cell__hd_in-select-after">
-        <view class="weui-label">回查日期</view>
-      </view>
-      <view class="weui-cell__bd">
-        <picker mode="date" bindchange="onReviewDate" value="{{reviewDate}}" data-index="{{haz_idx}}" data-type="reviewDate">
-          <view class="weui-select weui-select_in-select-after">{{reviewDate}}</view>
-        </picker>
-      </view>
-    </view>
-
-
-
     <!-- 隐患概要 -->
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
@@ -57,6 +43,18 @@
       </view>
     </view>
 
+    <!-- 回查日期 -->
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">回查日期</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="date" bindchange="onReviewDate" value="{{reviewDate}}" data-index="{{haz_idx}}" data-type="reviewDate">
+          <view class="weui-select weui-select_in-select-after">{{reviewDate}}</view>
+        </picker>
+      </view>
+    </view>
+
 
     <!-- 上传附件 -->
     <view class="weui-cell">
@@ -65,15 +63,14 @@
           <view class="weui-uploader__hd">
             <view class="weui-uploader__title">隐患附件</view>
           </view>
-
           <view class="weui-uploader__bd">
             <view class="weui-uploader__files">
-              <view class="weui-uploader__file" wx:for="{{insAttachImgs}}" wx:for-index="idx">
-                <image class="weui-uploader__img" src="{{item}}" catchtap="onPreviewImage" data-index="{{idx}}" />
-                <icon size="25" type="cancel" data-index="{{idx}}" catchtap="onDeleteImage"></icon>
+              <view class="weui-uploader__file" wx:for="{{uploadImgs}}" wx:for-index="idx">
+                <image class="weui-uploader__img" src="{{item}}" catchtap="onHazPreviewImage" data-hazindex="{{haz_idx}}" data-imgindex="{{idx}}" />
+                <icon size="25" type="cancel" data-hazindex="{{haz_idx}}" data-imgindex="{{idx}}" catchtap="onHazDeleteImage"></icon>
               </view>
               <view class="weui-uploader__input-box" style='display:{{hideAdd?"none":"block"}}'>
-                <view class="weui-uploader__input" bindtap="onChooseImage" data-type="front"></view>
+                <view class="weui-uploader__input" data-hazindex="{{haz_idx}}" bindtap="onHazChooseImage"></view>
               </view>
             </view>
           </view>
