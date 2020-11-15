@@ -184,17 +184,18 @@ Page({
   onHazSelect: function (e) {
     var params = {}
     let index = e.currentTarget.dataset.index
-    // params.insStateIndex= e.detail.value
     let selectIndex = e.detail.value
     params['hazards[' + index + '].' + 'hazardState'] = this.data.hazStateList[selectIndex]
-    // params['inspectionInfo.' + 'state'] = this.data.insStateList[params.insStateIndex]
-    // if (params['inspectionInfo.' + 'state'] == INSPTECTION_NORMAL){
-    //   params['inspectionInfo.' + 'description'] = NORMAL_DESC
-    // } else{
-    //   params['inspectionInfo.' + 'description'] = ''
-    // }
     this.setData(params)
     console.log('onHazSelect: params=' + JSON.stringify(params))
+  },
+
+  onReviewDate: function (e) {
+    var params = {}
+    let {type, index} = e.currentTarget.dataset
+    params['hazards[' + index + '].' + type] = e.detail.value
+    this.setData(params)
+    console.log('onReviewDate: params=' + JSON.stringify(params))
   },
 
   onChooseImage: function (e) {
