@@ -4,40 +4,42 @@
 
     <!--  左侧附件区域 -->
     <view class="weui-cell__imgs" catchtap="onPreviewImage" data-index="{{idx}}">
-    <image class="weui-cell__img"  src="{{img}}" />
-    <text wx:if="{{img_count > 1}}" class="weui-cell__img_count">{{img_count}}</text>
-  </view>
+      <image class="weui-cell__img" src="{{img}}" />
+      <text wx:if="{{img_count > 1}}" class="weui-cell__img_count">{{img_count}}</text>
+    </view>
 
-    <!--  右侧内容区域 -->
-    <view class="list-item__content">
+    <navigator class="list-item-nav" url="../../pages/reviewList/reviewList?id={{_id}}&bName={{buildingName}}&bID={{buildingId}}" hover-class="weui-cell_active">
+      <!--  右侧内容区域 -->
+      <view class="list-item__content">
 
-      <view class="library-item__info">
-        <view class="library-item__info-name ">
-          <text class="font-black-bold-34 font-break">{{desc}}</text>
+        <view class="library-item__info">
+          <view class="library-item__info-name ">
+            <text class="font-black-bold-34 font-break">{{desc}}</text>
+          </view>
+        </view>
+        <view class="library-item__info top_marin">
+          <view class="font-black-30 ellipsis">隐患日期: {{createDate}} </view>
+        </view>
+        <view class="library-item__info top_marin">
+          <view class="font-gray-26 ellipsis">状态: {{status}}</view>
+        </view>
+
+        <view class="library-item__info top_marin">
+          <view class="font-gray-26 ellipsis">下次回查日期: {{reviewDate}} </view>
+        </view>
+
+        <view class="library-item__info top_marin">
+          <view class="font-gray-26 ellipsis">回查次数: {{reviewCount}} </view>
+        </view>
+
+        <view class="library-item__info top_marin">
+          <view class="font-gray-26 ellipsis">区域: {{area}}</view>
+        </view>
+
+        <view class="library-item__info top_marin">
+          <view class="font-gray-26 ellipsis">处理人: {{user}} </view>
         </view>
       </view>
-      <view class="library-item__info top_marin">
-        <view class="font-black-30 ellipsis">隐患日期: {{createDate}} </view>
-      </view>
-      <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">状态: {{status}}</view>
-      </view>
-
-      <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">下次回查日期: {{reviewDate}} </view>
-      </view>
-
-      <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">回查次数: {{reviewCount}} </view>
-      </view>
-
-      <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">区域: {{area}}</view>
-      </view>
-
-      <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis" >处理人: {{user}} </view>
-      </view>
-    </view>
+    </navigator>
   </view>
 </template>

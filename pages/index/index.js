@@ -10,7 +10,7 @@ Page({
 
   onLoad: function () {
     if (isLogin()) {
-      wx.redirectTo({ url: '/pages/home/home' })
+      wx.redirectTo({ url: '/pages/building/building' })
     } else {
       wx.redirectTo({url: '/pages/login/login'})
     }

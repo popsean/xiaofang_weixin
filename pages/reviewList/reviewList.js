@@ -1,4 +1,4 @@
-import { getHazards } from '../../apis/hazard'
+import { getReviews } from '../../apis/review'
 import { turntoDate } from '../../utils/turnTime'
 
 
@@ -20,7 +20,7 @@ Page({
     scrollTop: 0,
     eventInfo: {},
     buildingName: '',
-    insId: '5fb8db1855838970e3aacc01',
+    hazId: '5fb8db1855838970e3aacc01',
     unresolved: 1,
     totalNum: 0,
     dataList: [], // 默认状态下的的楼宇列表，未输入关键字时展示
@@ -124,16 +124,16 @@ Page({
     //   totalNum:2
     // })
     // wx.hideLoading();
-    console.log('hazardlist onLoad insId:' + options.id)
-    // this.data.insId = options.id 
-    // this.data.insId = options.id 
+    console.log('reviewlist onLoad optins:' + JSON.stringify(options))
+    this.data.hazId = options.id 
+    this.data.buildingName = options.bName 
     pageNo = 1;
     wx.showLoading({ title: '加载中', mask: true })
-    this._fetchData(this.data.insId).then(res => {
+    this._fetchData(this.data.hazId).then(res => {
       this.setData({
-        insId: options.id,
+        hazId: options.id,
         dataList: res.list,
-        buildingName: res.list[0].buildingName,
+        buildingName: options.bName ,
         totalNum: res.totalNum,
         unresolved: res.unresolved,
         isNoData: res.list.length === 0
@@ -161,7 +161,7 @@ Page({
     let params = {} // eg: {'default.loadMoreStatus': xxx}
     params.loadMoreStatus = 'loading'
     this.setData(params)
-    this._fetchData(this.data.insId).then(res => {
+    this._fetchData(this.data.hazId).then(res => {
       let { dataList } = this.data;
 
       let list = res.list;
@@ -203,10 +203,10 @@ Page({
  * @return array
  */
 function fetchData(id) {
-  console.log('hazard: fetchData')
-  return getHazards({ ins_id: id, pageNo: pageNo, size: PAGE_SIZE }).then(res => {
+  console.log('review: fetchData')
+  return getReviews({ haz_id: id, pageNo: pageNo, size: PAGE_SIZE }).then(res => {
     pageNo++;
-    console.log('hazard result:' + res.data.result.length)
+    console.log('review result:' + res.data.result.length)
     return bizProcessData(res.data);
   })
 }
@@ -215,17 +215,17 @@ function bizProcessData(data) {
   let result = {}
   let list = []
   console.log('bizProcessData:' + data.result.length)
-  // console.log(' data.unresolvedHazs:' + JSON.stringify(data))
-  // console.log(' data.unresolvedHazs:' + data.totalUnresolveNum)
+  // console.log(' data.unresolvedreviews:' + JSON.stringify(data))
+  // console.log(' data.unresolvedreviews:' + data.totalUnresolveNum)
   var unresolveCount = 0;
-  data.result.forEach((haz, index) => {
+  data.result.forEach((review, index) => {
 
-    console.log('hazard:' + haz.description)
-    // console.log('hazard2 ')
-    if (haz.state !== '已解决') {
+    console.log('review:' + review.description)
+    // console.log('review2 ')
+    if (review.state !== '已解决') {
       unresolveCount++;
     }
-    list.push(mapModel(haz, index))
+    list.push(mapModel(review, index))
 
   })
   console.log('list:' + list.length + ",unresolveCount=" + unresolveCount)
@@ -235,27 +235,28 @@ function bizProcessData(data) {
   return result;
 }
 
-function mapModel(haz, idx) {
+function mapModel(review, idx) {
   let model = {}
   model.idx = idx;
-  model._id = haz._id
-  model.img = haz.attachImgs.length > 0 ? haz.attachImgs[0].url : ''
-  model.attachImgs = haz.attachImgs
-  model.img_count = haz.attachImgs.length
-  model.desc = haz.description
-  model.buildingName = haz.buildingName
-  model.area = haz.area
-  model.status = haz.state
-  model.reviewCount = haz.reviewCount
+  model._id = review._id
+  model.img = review.attachImgs.length > 0 ? review.attachImgs[0].url : ''
+  model.attachImgs = review.attachImgs
+  model.img_count = review.attachImgs.length
+  model.desc = review.description
+  // model.buildingName = review.buildingName
+  model.area = review.area
+  model.status = review.state
+  model.reviewCount = review.reviewCount
   model.createDate = turntoDate(
-    new Date(haz.createDate).getTime()
+    new Date(review.createDate).getTime()
   );
-  if (haz.reviewDate) {
+  if (review.reviewDate) {
     model.reviewDate = turntoDate(
-      new Date(haz.reviewDate).getTime()
+      new Date(review.reviewDate).getTime()
     );
   }
-  model.user = haz.createUserName
+  model.user = review.createUserName
+  model.detail = review.detail
 
   console.log('mapModel : ' + JSON.stringify(model))
   return model;

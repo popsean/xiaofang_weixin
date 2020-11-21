@@ -1,13 +1,14 @@
 {
   "pages": [
+    "pages/hazList/hazList",
+    "pages/index/index",
+    "pages/home/home",
     "pages/inspection/inspection",
     "pages/building/building",
-    "pages/hazList/hazList",
     "pages/insList/insList",
     "pages/test/test",
-    "pages/index/index",
     "pages/login/login",
-    "pages/home/home"
+    "pages/reviewList/reviewList"
   ],
   "window": {
     "backgroundTextStyle": "light",
