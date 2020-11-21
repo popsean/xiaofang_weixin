@@ -350,6 +350,8 @@ Page({
 
   /**
  * 上传附件图片，返回图片url数组
+ * 
+ * 先上传巡检的所有图片、所有隐患的所有图片，拿到服务端图片地址后，再进行后面的巡检完整信息上传
  */
   _uploadAttachedImgs: function () {
     let imgsToUpload = this.data.insAttachImgs;
@@ -400,7 +402,6 @@ Page({
     imgsToUpload.forEach(url => {
       insImgPromises.push(
         //uploadForIns方法需要再用一个promise包装一下，在promiseAll的时候才能按顺序执行
-
         new Promise((resolve, reject) => {
           uploadForIns(url)
             .then(oneImg => {
@@ -434,12 +435,11 @@ Page({
     })
 
 
-    // let promises = insImgPromises.concat(allHazImgPromises)
     let promises = allHazImgPromises.concat(insImgPromises)
     console.log('_uploadAttachedImgs promiseS : ' + promises.le)
     return Promise.all(promises).then(serverPaths => {
       console.log('_uploadAttachedImgs upload : serverPaths=' + JSON.stringify(serverPaths))
-      // return serverPaths;
+      // return serverPaths; 这里不用返回也ok了
     })
 
     // return Promise.all(insImgPromises).then(res => {
