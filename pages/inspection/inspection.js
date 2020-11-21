@@ -356,9 +356,9 @@ Page({
 
     // 如果是刚刚选择的本地照片，需要上传
     // 如果是服务器url，那么直接返回
-    var upload = function (imgPath) {
+    var uploadForIns = function (imgPath) {
       return new Promise((resolve, reject) => {
-        console.log('_uploadAttachedImgs: imgPath=' + imgPath)
+        console.log('uploadForIns: imgPath=' + imgPath)
 
         if (imgPath.indexOf(DOMAIN_NAME) === -1) {
           wx.showLoading({ title: '上传图片中', mask: true })
@@ -366,7 +366,7 @@ Page({
             .then(res => {
               let files = { url: JSON.parse(res).optImgSrc, status: 'finished' }
               resolve(files)
-              console.log('_uploadAttachedImgs: sucess=' + JSON.stringify(files))
+              console.log('uploadForIns-uploadImg: sucess=' + JSON.stringify(files))
             })
             .catch(err => reject(err))
         } else {
@@ -375,25 +375,87 @@ Page({
       })
     }
 
-    let promises = []
+    //由于隐患的附件属于二级维度, 需要一个idx标记是第几个隐患
+    var uploadForHaz = function (idx, imgPath) {
+      return new Promise((resolve, reject) => {
+        console.log('uploadForHaz: imgPath=' + imgPath)
+
+        if (imgPath.indexOf(DOMAIN_NAME) === -1) {
+          wx.showLoading({ title: '上传图片中', mask: true })
+          uploadImg(imgPath)
+            .then(res => {
+              let files = { url: JSON.parse(res).optImgSrc, status: 'finished' }
+              resolve([idx, files])
+              console.log('uploadForHaz-uploadImg: sucess=' + JSON.stringify(files))
+            })
+            .catch(err => reject(err))
+        } else {
+          resolve([idx, imgPath])
+        }
+      })
+    }
+
+    let insImgPromises = []
+    const self = this;
     imgsToUpload.forEach(url => {
-      promises.push(upload(url));
+      insImgPromises.push(
+        //uploadForIns方法需要再用一个promise包装一下，在promiseAll的时候才能按顺序执行
+
+        new Promise((resolve, reject) => {
+          uploadForIns(url)
+            .then(oneImg => {
+              console.log('upload [ins] finish  : imgPath=' + oneImg)
+              console.log('upload [ins] finish : self.data.inspectionInfo=' + JSON.stringify(self.data.inspectionInfo))
+              if (!self.data.inspectionInfo.attachImgs) {
+                self.data.inspectionInfo.attachImgs = []
+              }
+              self.data.inspectionInfo.attachImgs.push(oneImg)
+              resolve(oneImg);
+            })
+        }))
     })
 
-    console.log('_uploadAttachedImgs promiseS : ' + promises.length)
+    let allHazImgPromises = []
+    let l_hazards = this.data.hazards
+    l_hazards.forEach((haz, idx) => {
+      console.log('_uploadAttachedImgs for haz ,foreach idx=' + idx + ', area=' + haz.area + ', uploadImgs=' + haz.uploadImgs)
+      haz.uploadImgs && haz.uploadImgs.forEach(url => {
+        allHazImgPromises.push(
+          new Promise((resolve, reject) => {
+            uploadForHaz(idx, url)
+              .then(([idx, oneImg]) => {
+                console.log('upload [haz]-' + haz.area + ' finish ,upload: idx=' + idx + ',imgPath=' + oneImg)
+                self.data.hazards[idx].attachImgs.push(oneImg)
+                resolve(oneImg)
+              })
+          })
+        );
+      })
+    })
+
+
+    // let promises = insImgPromises.concat(allHazImgPromises)
+    let promises = allHazImgPromises.concat(insImgPromises)
+    console.log('_uploadAttachedImgs promiseS : ' + promises.le)
     return Promise.all(promises).then(serverPaths => {
       console.log('_uploadAttachedImgs upload : serverPaths=' + JSON.stringify(serverPaths))
-      return serverPaths;
+      // return serverPaths;
     })
+
+    // return Promise.all(insImgPromises).then(res => {
+    //   console.log('_uploadAttachedImgs all promise finish upload : res=' + JSON.stringify(res))
+    //   // this.data.inspectionInfo.attachImgs = serverPaths
+    //   // return serverPaths;
+    // })
   },
 
   /**
    * 将服务器返回的图片路径加入到参数中，上传巡检信息
    */
-  _updateInsInfo: function (imgPaths) {
+  _updateInsInfo: function () {
     wx.showLoading({ title: '上传巡检中', mask: true })
     this.data.inspectionInfo.createDate = new Date().toString();
-    this.data.inspectionInfo.attachImgs = imgPaths
+    // this.data.inspectionInfo.attachImgs = imgPaths
     this.data.inspectionInfo.hazards = this.data.hazards
     this.data.inspectionInfo.hazardsCount = this.data.hazards.length
     console.log('_updateInsInfo: ' + JSON.stringify(this.data.inspectionInfo))
