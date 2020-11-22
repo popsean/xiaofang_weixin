@@ -18,12 +18,15 @@ var Promise = require('../utils/es6-promise')
 const DEV_BASE_URL = 'http://127.0.0.1:3001/fullStack/'
 const PRODUCT_BASE_URL = 'http://39.105.104.191/proxy/fullStack/'
 const HTTPS_PRODUCT_BASE_URL = 'https://www.bjtuxf.cn/proxy/fullStack/'
-export const BASE_URL = DEV_BASE_URL
-// export const BASE_URL = PRODUCT_BASE_URL
-// export const BASE_URL = HTTPS_PRODUCT_BASE_URL
+
+
+// export const BASE_URL = DEV_BASE_URL
+export const BASE_URL = HTTPS_PRODUCT_BASE_URL
 
 const DEV_UPLOAD_FILE_DOMAIN="http://127.0.0.1:3001/fullStack/uploadFiles"
-export const DOMAIN_NAME = DEV_UPLOAD_FILE_DOMAIN;
+
+export const DOMAIN_NAME = BASE_URL + "uploadFiles";
+// export const DOMAIN_NAME = DEV_UPLOAD_FILE_DOMAIN;
 // export const DOMAIN_NAME = '这里需要填写真实服务器地址，用来上传图片'
 // 本地服务器
 // export const BASE_URL = 'http://localhost:8080/library/public/index.php/api'
