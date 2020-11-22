@@ -9,6 +9,7 @@ import { turntoDate } from '../../utils/turnTime'
  */
 const PAGE_SIZE = 10;
 var pageNo = 1;
+const app = getApp()
 
 Page({
 
@@ -28,6 +29,14 @@ Page({
     isNoData: false, // 是否暂无数据,
   },
 
+  onShow: function (options){
+    console.log('app.globalData.needRefresh = ' + app.globalData.needRefresh )
+    if (app.globalData.needRefresh){
+      app.globalData.needRefresh = false;
+      this.refresh()
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -36,13 +45,23 @@ Page({
     console.log('onLoad options:' + JSON.stringify(options))
     this.data.buildingId = options.bID
     this.data.buildingName = options.bName
+    this.setData({
+      buildingId: options.bID,
+      buildingName: options.bName,
+    })
+    this.refresh()
+  },
+
+  refresh: function(){
     pageNo = 1;
+    this.dataList = []
     wx.showLoading({ title: '加载中', mask: true })
     this._fetchData(this.data.buildingId).then(res => {
+      console.log('refresh finihs')
       this.setData({
         dataList: res.list,
-        buildingName:options.bName,
-        buildingId:options.bID,
+        // buildingName:options.bName,
+        // buildingId:options.bID,
         unresolve:res.unresolve,
         isNoData: res.list.length === 0
       })
@@ -60,7 +79,7 @@ Page({
   },
 
   onReachBottom: function () {
-
+    console.log('onReachBottom')
     // 加载中或没有数据时返回
     let { loadMoreStatus, isNoData } = this.data
     if (loadMoreStatus !== 'hidding' || isNoData) return

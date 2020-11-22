@@ -47,14 +47,13 @@ Page({
       hazId: options.hazID,
       buildingName: options.bName,
     })
-    pageNo = 1;
-    wx.showLoading({ title: '加载中', mask: true })
     this.refresh()
   },
 
   refresh: function(){
     pageNo = 1;
     this.dataList = []
+    wx.showLoading({ title: '加载中', mask: true })
     this._fetchData(this.data.hazId).then(res => {
       console.log('refresh res= ' + JSON.stringify(res))
       this.setData({

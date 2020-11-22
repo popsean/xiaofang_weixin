@@ -12,6 +12,7 @@ import { getUID, getNickName } from '../../utils/permission'
 var today = new Date();
 var uid = getUID()
 var userName = getNickName()
+const app = getApp()
 
 const MAX_IMGS = 9;
 // const MOCK_BID = '5c04f64b00c4056ce4a3cc2b';
@@ -336,7 +337,10 @@ Page({
       console.log('onSubmit: res=' + JSON.stringify(res))
       if (res.data.code == 0) {
         wx.showToast({ title: '创建巡检成功', mask: true })
-        NB_TIMER = setTimeout(() => wx.navigateBack(), 1000)
+        NB_TIMER = setTimeout(() => {
+          app.globalData.needRefresh = true
+          wx.navigateBack()
+        }, 1000)
       } else {
         wx.showToast({ title: res.data.message, mask: true, icon: 'none' })
       }
