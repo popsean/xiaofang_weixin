@@ -6,4 +6,7 @@ module.exports = {
     console.log('getReviews:'+ JSON.stringify(params))
     return get('reviews/get', params)
   },
+  addReview: function (params) {
+    return post('reviews/add', params)
+  },
 }

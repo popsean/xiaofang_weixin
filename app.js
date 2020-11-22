@@ -17,6 +17,16 @@ App({
    */
   event: new EventEmitter(),
 
+
+  /**
+   *   全局变量
+   */
+  globalData:{
+    //控制返回页面后是否刷新数据
+    needRefresh: false,
+  },
+
+
   onLaunch: function () {
     // wx.clearStorageSync()
 

@@ -17,14 +17,14 @@
         </view>
       </view>
       <view class="library-item__info top_marin">
-        <view class="font-black-30 ellipsis">回查日期: {{createDate}} </view>
+        <view class="font-black-30 ellipsis">回查日期: {{reviewDate}} </view>
       </view>
       <view class="library-item__info top_marin">
         <view class="font-gray-26 ellipsis">状态: {{status}}</view>
       </view>
 
       <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">下次回查日期: {{reviewDate}} </view>
+        <view class="font-gray-26 ellipsis">下次回查日期: {{nextReviewDate}} </view>
       </view>
 
       <view class="library-item__info top_marin">

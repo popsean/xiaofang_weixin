@@ -9,6 +9,7 @@ import { turntoDate } from '../../utils/turnTime'
  */
 const PAGE_SIZE = 10;
 var pageNo = 1;
+const app = getApp()
 
 Page({
 
@@ -20,122 +21,46 @@ Page({
     scrollTop: 0,
     eventInfo: {},
     buildingName: '',
-    hazId: '5fb8db1855838970e3aacc01',
-    unresolved: 1,
+    hazId: '',
+    showAddBt: false,
     totalNum: 0,
-    dataList: [], // 默认状态下的的楼宇列表，未输入关键字时展示
+    dataList: [], // 
     loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
     isNoData: false, // 是否暂无数据,
-    mockList: [{
-      _id: 1,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      reviewCount: '3',
-      reviewDate: '2020-10-23',
-      createDate: '2020-10-23',
-      user: 'me'
+  },
 
-    }, {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      reviewCount: '3',
-      createDate: '2020-10-23',
-      reviewDate: '2020-10-23',
-      user: 'me'
-    },
-    {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      reviewCount: '3',
-      createDate: '2020-10-23',
-      reviewDate: '2020-10-23',
-      user: 'me'
-    }, {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      reviewCount: '3',
-      createDate: '2020-10-23',
-      reviewDate: '2020-10-23',
-      user: 'me'
-    }, {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      reviewCount: '3',
-      createDate: '2020-10-23',
-      reviewDate: '2020-10-23',
-      user: 'me'
-    }, {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      reviewCount: '3',
-      createDate: '2020-10-23',
-      reviewDate: '2020-10-23',
-      user: 'me'
-    }, {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      reviewCount: '3',
-      createDate: '2020-10-23',
-      reviewDate: '2020-10-23',
-      user: 'me'
-    },
-    {
-      _id: 3,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      reviewCount: '3',
-      createDate: '2020-10-23',
-      reviewDate: '2020-10-23',
-      user: 'me'
+
+  onShow: function (options){
+    console.log('app.globalData.needRefresh = ' + app.globalData.needRefresh )
+    if (app.globalData.needRefresh){
+      app.globalData.needRefresh = false;
+      this.refresh()
     }
-    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.setData({
-    //   dataList:this.data.mockList,
-    //   isNoData:false,
-    //   buildingName: '哈哈楼',
-    //   totalNum:2
-    // })
-    // wx.hideLoading();
     console.log('reviewlist onLoad optins:' + JSON.stringify(options))
-    this.data.hazId = options.id 
-    this.data.buildingName = options.bName 
+    this.setData({
+      hazId: options.hazID,
+      buildingName: options.bName,
+    })
     pageNo = 1;
     wx.showLoading({ title: '加载中', mask: true })
+    this.refresh()
+  },
+
+  refresh: function(){
+    pageNo = 1;
+    this.dataList = []
     this._fetchData(this.data.hazId).then(res => {
+      console.log('refresh res= ' + JSON.stringify(res))
       this.setData({
-        hazId: options.id,
         dataList: res.list,
-        buildingName: options.bName ,
         totalNum: res.totalNum,
-        unresolved: res.unresolved,
+        showAddBt: res.showAddBt ,
         isNoData: res.list.length === 0
       })
     }).catch(() => {
@@ -163,12 +88,12 @@ Page({
     this.setData(params)
     this._fetchData(this.data.hazId).then(res => {
       let { dataList } = this.data;
-
+      console.log('onReachBottom res=' + JSON.stringify(res))
       let list = res.list;
       params.dataList = dataList.concat(list)
       params.loadMoreStatus = list.length ? 'hidding' : 'nomore'
       params.totalNUm = res.totalNum
-      params.unresolved = res.unresolved
+      params.showAddBt = res.showAddBt
       this.setData(params)
     }).catch(() => {
       params.loadMoreStatus = 'hidding'
@@ -176,6 +101,7 @@ Page({
     })
   },
   onPreviewImage: function (e) {
+    console.log('onPreviewImage: dataset=' + JSON.stringify(e.currentTarget.dataset))
     let index = parseInt(e.currentTarget.dataset.index)
     console.log('onPreviewImage: lable=' + index)
     let imgsList = []
@@ -211,27 +137,25 @@ function fetchData(id) {
   })
 }
 
-function bizProcessData(data) {
+function bizProcessData(inData) {
   let result = {}
   let list = []
-  console.log('bizProcessData:' + data.result.length)
-  // console.log(' data.unresolvedreviews:' + JSON.stringify(data))
-  // console.log(' data.unresolvedreviews:' + data.totalUnresolveNum)
-  var unresolveCount = 0;
-  data.result.forEach((review, index) => {
-
+  console.log('bizProcessData:' + inData.result.length)
+  inData.result.forEach((review, index) => {
     console.log('review:' + review.description)
-    // console.log('review2 ')
-    if (review.state !== '已解决') {
-      unresolveCount++;
-    }
     list.push(mapModel(review, index))
-
   })
-  console.log('list:' + list.length + ",unresolveCount=" + unresolveCount)
+  console.log('list:' + list.length)
   result.list = list;
-  result.totalNum = data.totalNum
-  result.unresolved = unresolveCount
+  result.totalNum = inData.totalNum
+  result.showAddBt =  true
+  if (inData.result.length > 0) {
+    result.showAddBt = inData.result.some(review => {
+      return review.state !== '已解决';
+    });
+  }
+  console.log('result :' + JSON.stringify(result))
+  
   return result;
 }
 
@@ -246,13 +170,16 @@ function mapModel(review, idx) {
   // model.buildingName = review.buildingName
   model.area = review.area
   model.status = review.state
-  model.reviewCount = review.reviewCount
-  model.createDate = turntoDate(
-    new Date(review.createDate).getTime()
-  );
+
   if (review.reviewDate) {
     model.reviewDate = turntoDate(
       new Date(review.reviewDate).getTime()
+    );
+  }
+
+  if (review.nextReviewDate) {
+    model.nextReviewDate = turntoDate(
+      new Date(review.nextReviewDate).getTime()
     );
   }
   model.user = review.createUserName

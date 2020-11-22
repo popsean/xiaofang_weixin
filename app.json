@@ -8,7 +8,8 @@
     "pages/insList/insList",
     "pages/test/test",
     "pages/login/login",
-    "pages/reviewList/reviewList"
+    "pages/reviewList/reviewList",
+    "pages/addReview/addReview"
   ],
   "window": {
     "backgroundTextStyle": "light",

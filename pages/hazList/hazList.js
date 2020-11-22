@@ -124,9 +124,7 @@ Page({
     //   totalNum:2
     // })
     // wx.hideLoading();
-    console.log('hazardlist onLoad insId:' + options.id)
-    // this.data.insId = options.id 
-    // this.data.insId = options.id 
+    console.log('hazardlist onLoad options:' + JSON.stringify(options))
     pageNo = 1;
     wx.showLoading({ title: '加载中', mask: true })
     this._fetchData(this.data.insId).then(res => {

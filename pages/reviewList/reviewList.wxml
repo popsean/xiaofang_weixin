@@ -7,19 +7,18 @@
   <view class="top_container">
     <view class="top_row">
       <text class="text-name">{{buildingName}}</text>
-      <navigator class="nav" url="../inspection/inspection?bName={{buildingName}}&bID={{buildingId}}"
+      <navigator class="nav" url="../addReview/addReview?bName={{buildingName}}&bID={{buildingId}}&hazID={{hazId}}"
         hover-class="weui-cell_active">
-        <text class="text-add">续办</text>
+        <text wx:if="{{showAddBt}}" class="text-add">续办</text>
       </navigator>
     </view>
-
   </view>
   <view class="top_container" slot="sticky">
-    <text class="text-name">{{buildingName}}</text>
-    <view class="top_row top_margin">
-      <navigator class="nav" url="../inspection/inspection?bName={{buildingName}}&bID={{buildingId}}"
+    <view class="top_row">
+      <text class="text-name">{{buildingName}}</text>
+      <navigator class="nav" url="../addReview/addReview?bName={{buildingName}}&bID={{buildingId}}&hazID={{hazId}}"
         hover-class="weui-cell_active">
-        <text class="text-add">续办</text>
+        <text wx:if="{{showAddBt}}" class="text-add">续办</text>
       </navigator>
     </view>
   </view>
@@ -28,7 +27,7 @@
 
 <view wx:if="{{dataList.length}}">
   <!-- <navigator wx:for="{{dataList}}" wx:key="{{item._id}}" hover-class="ui--active" bindtap="onClickLibraryItem"> -->
-    <template wx:for="{{dataList}}" wx:key="{{item._id}}" is="review-list-item" data="{{...item}}"></template>
+  <template wx:for="{{dataList}}" wx:key="{{item._id}}" is="review-list-item" data="{{...item}}"></template>
   <!-- </navigator> -->
 </view>
 <!-- 加载更多、暂无数据 -->
