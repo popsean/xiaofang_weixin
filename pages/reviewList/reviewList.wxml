@@ -3,7 +3,7 @@
 <template wx:if="{{isFocus && keyword}}" is="building-list" data="{{...searching}}"></template>
 <template wx:else is="building-list" data="{{...default}}"></template> -->
 
-<sticky scroll-top="{{ scrollTop }}">
+<!-- <sticky scroll-top="{{ scrollTop }}">
   <view class="top_container">
     <view class="top_row">
       <text class="text-name">{{buildingName}}</text>
@@ -22,8 +22,17 @@
       </navigator>
     </view>
   </view>
-</sticky>
+</sticky> -->
 
+<view class="top_container" >
+    <view class="top_row">
+      <text class="text-name">{{buildingName}}</text>
+    </view>
+    <navigator class="nav top_row top_margin" url="../addReview/addReview?bName={{buildingName}}&bID={{buildingId}}&hazID={{hazId}}"
+        hover-class="weui-cell_active">
+        <text wx:if="{{showAddBt}}" class="text-add">续办</text>
+      </navigator>
+  </view>
 
 <view wx:if="{{dataList.length}}">
   <!-- <navigator wx:for="{{dataList}}" wx:key="{{item._id}}" hover-class="ui--active" bindtap="onClickLibraryItem"> -->

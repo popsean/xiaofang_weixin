@@ -33,7 +33,7 @@
   </view>
 </sticky>
 
-<view wx:if="{{dataList.length}}">
+<view wx:if="{{dataList.length}}" class="weui-cells weui-cells_after-title library-list ">
   <!-- <navigator wx:for="{{dataList}}" wx:key="{{item._id}}" hover-class="ui--active" bindtap="onClickLibraryItem"> -->
     <template  wx:for="{{dataList}}" wx:key="{{item._id}}" is="ins-list-item" data="{{...item}}"></template>
   <!-- </navigator> -->

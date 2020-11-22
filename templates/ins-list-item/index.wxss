@@ -1,6 +1,6 @@
 .list-item {
   display: flex;
-  width: 100%;
+  /* width: 100%; */
   flex-direction: row;
   padding: 5px;
   /* background-color: cyan; */
@@ -55,8 +55,8 @@
   word-break:break-all;
 }
 .library-item__info-name {
-  display: -webkit-box;
-  display: -webkit-flex;
+  /* display: -webkit-box;
+  display: -webkit-flex; */
   display: flex;
 
   /* width: 60px; */

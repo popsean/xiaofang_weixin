@@ -14,10 +14,13 @@
     </view>
   </view>
   <view class="top_container" slot="sticky">
-    <text class="text-name">{{buildingName}}</text>
-    <text class="text-normal ">隐患数:{{totalNum}}</text>
-    <text wx:if="{{unresolved > 0}}" class="text-warn">未解决:{{unresolved}}</text>
-
+    <view class="top_row">
+      <text class="text-name">{{buildingName}}</text>
+    </view>
+    <view class="top_row top_margin">
+      <text class="text-normal ">隐患数:{{totalNum}}</text>
+      <text wx:if="{{unresolved > 0}}" class="text-warn">未解决:{{unresolved}}</text>
+    </view>
   </view>
 </sticky>
 
