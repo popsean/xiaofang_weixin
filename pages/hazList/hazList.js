@@ -20,7 +20,8 @@ Page({
     scrollTop: 0,
     eventInfo: {},
     buildingName: '',
-    insId: '5fb8db1855838970e3aacc01',
+    // insId: '5fb8db1855838970e3aacc01',
+    insId: '',
     unresolved: 0,
     totalNum: 0,
     dataList: [], // 默认状态下的的楼宇列表，未输入关键字时展示
@@ -117,15 +118,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.setData({
-    //   dataList:this.data.mockList,
-    //   isNoData:false,
-    //   buildingName: '哈哈楼',
-    //   totalNum:2
-    // })
-    // wx.hideLoading();
     console.log('hazardlist onLoad options:' + JSON.stringify(options))
     pageNo = 1;
+    this.data.insId = options.id
     wx.showLoading({ title: '加载中', mask: true })
     this._fetchData(this.data.insId).then(res => {
       this.setData({
