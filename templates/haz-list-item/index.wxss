@@ -5,6 +5,10 @@
   padding: 5px;
   /* background-color: cyan; */
 }
+.list-item-nav{
+  display: flex;
+  flex: 1;
+}
 .top_marin{
   margin-top: 5px;
 }

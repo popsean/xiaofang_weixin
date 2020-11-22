@@ -8,7 +8,10 @@
       <text wx:if="{{img_count > 1}}" class="weui-cell__img_count">{{img_count}}</text>
     </view>
 
-    <navigator class="list-item-nav" url="../../pages/reviewList/reviewList?hazID={{_id}}&bName={{buildingName}}&bID={{buildingId}}" hover-class="weui-cell_active">
+    <!--  右侧内容区域 -->
+    <navigator class="list-item-nav"
+      url="../../pages/reviewList/reviewList?hazID={{_id}}&bName={{buildingName}}&bID={{buildingId}}"
+      hover-class="weui-cell_active">
       <!--  右侧内容区域 -->
       <view class="list-item__content">
 

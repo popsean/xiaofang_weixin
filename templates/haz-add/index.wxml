@@ -23,6 +23,16 @@
       </view>
     </view>
 
+    <!--  自定义状态 -->
+    <view wx:if="{{hazardState == '自定义'}}" class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">自定义状态</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" bindinput="onInput" data-label="customState" />
+      </view>
+    </view>
+
     <!-- 隐患概要 -->
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
@@ -49,7 +59,8 @@
         <view class="weui-label">回查日期</view>
       </view>
       <view class="weui-cell__bd">
-        <picker mode="date" bindchange="onReviewDate" value="{{reviewDate}}" data-index="{{haz_idx}}" data-type="reviewDate">
+        <picker mode="date" bindchange="onReviewDate" value="{{reviewDate}}" data-index="{{haz_idx}}"
+          data-type="reviewDate">
           <view class="weui-select weui-select_in-select-after">{{reviewDate}}</view>
         </picker>
       </view>
@@ -66,8 +77,10 @@
           <view class="weui-uploader__bd">
             <view class="weui-uploader__files">
               <view class="weui-uploader__file" wx:for="{{uploadImgs}}" wx:for-index="idx">
-                <image class="weui-uploader__img" src="{{item}}" catchtap="onHazPreviewImage" data-hazindex="{{haz_idx}}" data-imgindex="{{idx}}" />
-                <icon size="25" type="cancel" data-hazindex="{{haz_idx}}" data-imgindex="{{idx}}" catchtap="onHazDeleteImage"></icon>
+                <image class="weui-uploader__img" src="{{item}}" catchtap="onHazPreviewImage"
+                  data-hazindex="{{haz_idx}}" data-imgindex="{{idx}}" />
+                <icon size="25" type="cancel" data-hazindex="{{haz_idx}}" data-imgindex="{{idx}}"
+                  catchtap="onHazDeleteImage"></icon>
               </view>
               <view class="weui-uploader__input-box" style='display:{{hideAdd?"none":"block"}}'>
                 <view class="weui-uploader__input" data-hazindex="{{haz_idx}}" bindtap="onHazChooseImage"></view>

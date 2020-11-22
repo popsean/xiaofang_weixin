@@ -42,6 +42,7 @@ Page({
       description: '',
       attachImgs: [],
       nextReviewDate: '',
+      customState: ''
     },
     newHazIndex: 1,
     reviewStateList: [

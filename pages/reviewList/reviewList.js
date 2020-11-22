@@ -170,6 +170,9 @@ function mapModel(review, idx) {
   // model.buildingName = review.buildingName
   model.area = review.area
   model.status = review.state
+  if(model.status == '自定义'){
+    model.status = review.customState
+  }
 
   if (review.reviewDate) {
     model.reviewDate = turntoDate(

@@ -245,6 +245,9 @@ function mapModel(haz, idx) {
   model.buildingName = haz.buildingName
   model.area = haz.area
   model.status = haz.state
+  if(model.status == '自定义'){
+    model.status = haz.customState
+  }
   model.reviewCount = haz.reviewCount
   model.createDate = turntoDate(
     new Date(haz.createDate).getTime()

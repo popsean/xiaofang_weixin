@@ -43,7 +43,7 @@
       </picker>
     </view>
   </view>
-
+  
   <!-- 巡检概要 -->
   <view class="weui-cell weui-cell_input">
     <view class="weui-cell__hd">

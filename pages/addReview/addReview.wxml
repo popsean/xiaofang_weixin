@@ -38,8 +38,17 @@
     </view>
     <view class="weui-cell__bd">
       <picker bindchange="onReviewSelect" mode="selector" value="{{reviewStateIndex}}" range="{{reviewStateList}}">
-        <view class="weui-select weui-select_in-select-after">{{reviewStateList[reviewStateIndex]}}</view>
+        <view class="weui-select weui-select_in-select-after">{{reviewInfo.state}}</view>
       </picker>
+    </view>
+  </view>
+  <!--  自定义状态 -->
+  <view  wx:if="{{reviewInfo.state == '自定义'}}"  class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">自定义状态</view>
+    </view>
+    <view  class="weui-cell__bd">
+      <input class="weui-input" bindinput="onInput" data-label="customState" />
     </view>
   </view>
 
@@ -55,15 +64,16 @@
 
   <!-- 再查日期 -->
   <view class="weui-cell weui-cell_select">
-      <view class="weui-cell__hd weui-cell__hd_in-select-after">
-        <view class="weui-label">再查日期</view>
-      </view>
-      <view class="weui-cell__bd">
-        <picker mode="date" bindchange="onNextReviewDate" value="{{reviewInfo.nextReviewDate}}" data-type="nextReviewDate">
-          <view class="weui-select weui-select_in-select-after">{{reviewInfo.nextReviewDate}}</view>
-        </picker>
-      </view>
+    <view class="weui-cell__hd weui-cell__hd_in-select-after">
+      <view class="weui-label">再查日期</view>
     </view>
+    <view class="weui-cell__bd">
+      <picker mode="date" bindchange="onNextReviewDate" value="{{reviewInfo.nextReviewDate}}"
+        data-type="nextReviewDate">
+        <view class="weui-select weui-select_in-select-after">{{reviewInfo.nextReviewDate}}</view>
+      </picker>
+    </view>
+  </view>
 
 
   <!-- 上传附件 -->

@@ -9,37 +9,36 @@
     </view>
 
     <!--  右侧内容区域 -->
-    <navigator class="list-item-nav" url="../../pages/hazList/hazList?id={{_id}}"
-      hover-class="weui-cell_active">
-    <view class="list-item__content">
+    <navigator class="list-item-nav" url="../../pages/hazList/hazList?id={{_id}}" hover-class="weui-cell_active">
+      <view class="list-item__content">
 
-      <view class="library-item__info">
-        <view class="library-item__info-name ">
-          <text class="font-black-bold-34 font-break">{{desc}}</text>
+        <view class="library-item__info">
+          <view class="library-item__info-name ">
+            <text class="font-black-bold-34 font-break">{{desc}}</text>
+          </view>
+        </view>
+        <view class="library-item__info top_marin">
+          <view class="font-black-30 ellipsis">日期: {{date}} </view>
+        </view>
+
+        <view class="library-item__info top_marin">
+          <view class="font-gray-26 ellipsis">区域: {{area}}</view>
+        </view>
+
+        <view class="library-item__info top_marin">
+          <view class="font-gray-26 ellipsis">隐患数: {{subCount}} </view>
+        </view>
+
+        <view class="library-item__info top_marin">
+          <!-- <view class="font-gray-26 ellipsis left_marin">状态: {{status}}</view> -->
+          <view wx:if="{{secure}}" class="font-gray-26 ellipsis">状态: {{status}}</view>
+          <view wx:else class="font-gray-26 ellipsis" style="color:red;">状态: {{status}}</view>
+        </view>
+
+        <view class="library-item__info top_marin">
+          <view class="font-gray-26 ellipsis">处理人: {{user}} </view>
         </view>
       </view>
-      <view class="library-item__info top_marin">
-        <view class="font-black-30 ellipsis">日期: {{date}} </view>
-      </view>
-
-      <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">区域: {{area}}</view>
-      </view>
-
-      <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">隐患数: {{subCount}} </view>
-      </view>
-
-      <view class="library-item__info top_marin">
-        <!-- <view class="font-gray-26 ellipsis left_marin">状态: {{status}}</view> -->
-        <view wx:if="{{secure}}" class="font-gray-26 ellipsis">状态: {{status}}</view>
-        <view wx:else class="font-gray-26 ellipsis" style="color:red;">状态: {{status}}</view>
-      </view>
-
-      <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">处理人: {{user}} </view>
-      </view>
-    </view>
     </navigator>
   </view>
 </template>
