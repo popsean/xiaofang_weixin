@@ -71,11 +71,6 @@ Page({
       buildingName:options.bName
     })
     console.log('onLoad data:' + JSON.stringify(this.data))
-    // this.setData({
-    //   buildingID: MOCK_BID,
-    //   buildingName: MOCK_BNAME
-    // })
-    wx.showToast({ title: this.data.buildingName, mask: true })
   },
 
   /**

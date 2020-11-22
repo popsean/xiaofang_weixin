@@ -51,7 +51,7 @@ Page({
         if (!setLogin(res.data.token, userInfo)) {
           return Promise.reject(new Error('设置登录态失败'))
         }
-        wx.redirectTo({ url: '/pages/home/home' })
+        wx.redirectTo({ url: '/pages/building/building' })
       }
       }).finally(() => {
         // wx.hideToast()

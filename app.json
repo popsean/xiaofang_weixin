@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/hazList/hazList",
     "pages/index/index",
+    "pages/hazList/hazList",
     "pages/home/home",
-    "pages/inspection/inspection",
+    "pages/addIns/addIns",
     "pages/building/building",
     "pages/insList/insList",
     "pages/test/test",

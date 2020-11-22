@@ -17,7 +17,6 @@ const SEARCHING_INITIAL_CONFIG = {
 
 Page({
   data: {
-    // id: null, // 图书id
     isFocus: false, // 是否正在输入
     keyword: '', // 输入框内容
     default: {

@@ -241,6 +241,7 @@ function mapModel(haz, idx) {
   model.attachImgs = haz.attachImgs
   model.img_count = haz.attachImgs.length
   model.desc = haz.description
+  model.detail = haz.detail
   model.buildingName = haz.buildingName
   model.area = haz.area
   model.status = haz.state

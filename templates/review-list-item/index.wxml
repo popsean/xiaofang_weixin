@@ -19,6 +19,11 @@
       <view class="library-item__info top_marin">
         <view class="font-black-30 ellipsis">回查日期: {{reviewDate}} </view>
       </view>
+
+      <view class="library-item__info top_marin">
+        <view class="font-gray-26 ellipsis">区域: {{area}}</view>
+      </view>
+
       <view class="library-item__info top_marin">
         <view class="font-gray-26 ellipsis">状态: {{status}}</view>
       </view>
@@ -28,12 +33,11 @@
       </view>
 
       <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">区域: {{area}}</view>
-      </view>
-
-      <view class="library-item__info top_marin">
         <view class="font-gray-26 ellipsis" >处理人: {{user}} </view>
       </view>
+      <view class="library-item__info top_marin">
+          <text class="font-gray-26  font-break">详情: {{detail}}</text>
+        </view>
     </view>
   </view>
 </template>

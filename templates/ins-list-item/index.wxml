@@ -23,9 +23,7 @@
       </view>
 
       <view class="library-item__info top_marin">
-        <!-- <view class="font-gray-26 ellipsis left_marin">状态: {{status}}</view> -->
-        <view wx:if="{{secure}}" class="font-gray-26 ellipsis">状态: {{status}}</view>
-        <view wx:else class="font-gray-26 ellipsis" style="color:red;">状态: {{status}}</view>
+        <view class="font-gray-26 ellipsis">区域: {{area}}</view>
       </view>
 
       <view class="library-item__info top_marin">
@@ -33,7 +31,9 @@
       </view>
 
       <view class="library-item__info top_marin">
-        <view class="font-gray-26 ellipsis">区域: {{area}}</view>
+        <!-- <view class="font-gray-26 ellipsis left_marin">状态: {{status}}</view> -->
+        <view wx:if="{{secure}}" class="font-gray-26 ellipsis">状态: {{status}}</view>
+        <view wx:else class="font-gray-26 ellipsis" style="color:red;">状态: {{status}}</view>
       </view>
 
       <view class="library-item__info top_marin">

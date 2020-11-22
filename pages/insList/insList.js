@@ -20,101 +20,20 @@ Page({
     scrollTop: 0,
     eventInfo: {},
 
-    buildingId: '5c04f64b00c4056ce4a3cc2b',
-    buildingName: '哈哈',
-    unresolve: 2,
-    dataList: [], // 默认状态下的的楼宇列表，未输入关键字时展示
+    buildingId: '',
+    buildingName: '',
+    unresolve: 0,
+    dataList: [], 
     loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
     isNoData: false, // 是否暂无数据,
-    mockList: [{
-      _id: 1,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      subCount: '3',
-      date: '2020-10-23',
-      user: 'me'
-
-    }, {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      subCount: '3',
-      date: '2020-10-23',
-      user: 'me'
-    },
-    {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      subCount: '3',
-      date: '2020-10-23',
-      user: 'me'
-    }, {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      subCount: '3',
-      date: '2020-10-23',
-      user: 'me'
-    }, {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      subCount: '3',
-      date: '2020-10-23',
-      user: 'me'
-    }, {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      subCount: '3',
-      date: '2020-10-23',
-      user: 'me'
-    }, {
-      _id: 2,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      subCount: '3',
-      date: '2020-10-23',
-      user: 'me'
-    },
-    {
-      _id: 3,
-      img: '../../images/test_icon.jpg',
-      desc: 'hhhhhhhhh',
-      area: 'aaa',
-      status: 'bbb',
-      subCount: '3',
-      date: '2020-10-23',
-      user: 'me'
-    }
-    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.setData({
-    //   dataList:this.data.mockList,
-    //   isNoData:false
-    // })
-    console.log('onLoad bName:' +options.bName)
-    console.log('onLoad bID:' +options.bID)
+
+    console.log('onLoad options:' + JSON.stringify(options))
     this.data.buildingId = options.bID
     this.data.buildingName = options.bName
     pageNo = 1;

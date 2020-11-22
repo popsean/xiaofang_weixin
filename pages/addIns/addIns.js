@@ -95,7 +95,6 @@ Page({
       buildingID: MOCK_BID,
       buildingName: MOCK_BNAME
     })
-    wx.showToast({ title: this.data.buildingName, mask: true })
   },
 
   /**
