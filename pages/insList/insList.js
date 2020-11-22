@@ -145,6 +145,7 @@ function mapModel(ins, idx) {
   model.attachImgs = ins.attachImgs
   model.img_count = ins.attachImgs.length
   model.desc = ins.description
+  model.buildingName = ins.buildingName
   model.area = ins.area
   model.status = ins.state
   model.subCount = ins.hazardsCount

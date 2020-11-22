@@ -121,12 +121,13 @@ Page({
     console.log('hazardlist onLoad options:' + JSON.stringify(options))
     pageNo = 1;
     this.data.insId = options.id
+    this.data.buildingName = options.bName
     wx.showLoading({ title: '加载中', mask: true })
     this._fetchData(this.data.insId).then(res => {
       this.setData({
         insId: options.id,
+        buildingName: options.bName,
         dataList: res.list,
-        buildingName: res.list[0].buildingName,
         totalNum: res.totalNum,
         unresolved: res.unresolved,
         isNoData: res.list.length === 0

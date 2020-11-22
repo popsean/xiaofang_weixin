@@ -9,7 +9,7 @@
     </view>
 
     <!--  右侧内容区域 -->
-    <navigator class="list-item-nav" url="../../pages/hazList/hazList?id={{_id}}" hover-class="weui-cell_active">
+    <navigator class="list-item-nav" url="../../pages/hazList/hazList?id={{_id}}&bName={{buildingName}}&bID={{buildingId}}" hover-class="weui-cell_active">
       <view class="list-item__content">
 
         <view class="library-item__info">
