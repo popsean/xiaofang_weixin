@@ -1,8 +1,8 @@
 <!--miniprogram/pages/login/login.wxml-->
 <view class="container">
-  <!-- <view class="login-icon">
-    <image class="login-img" src="../images/loginLog.jpg"></image>
-  </view> -->
+  <view class="login-icon">
+    <image src="../../images/login_bg.jpg"></image>
+  </view>
   <view class="login-from">
  
     <!--账号-->
