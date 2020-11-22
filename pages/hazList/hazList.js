@@ -21,7 +21,7 @@ Page({
     eventInfo: {},
     buildingName: '',
     insId: '5fb8db1855838970e3aacc01',
-    unresolved: 1,
+    unresolved: 0,
     totalNum: 0,
     dataList: [], // 默认状态下的的楼宇列表，未输入关键字时展示
     loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding

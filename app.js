@@ -41,24 +41,26 @@ App({
    * 获取用户信息
    * @return {Promise}
    */
-  getUserInfo: function () {
-    let uid = getUID()
-    if (!uid) {
-      return Promise.reject(new Error('未登录'))
-    }
-    // 已经有用户信息时直接返回
-    if (USER_INFO.id) {
-      return Promise.resolve(USER_INFO)
-    }
-    return getUserInfoById(uid).then(res => {
-      this.setUserInfo(res.data)
-      return res.data
-    })
-  },
+  // getUserInfo: function () {
+  //   console.log('app getUserInfo: ' + JSON.stringify(USER_INFO))
+  //   let uid = getUID()
+  //   if (!uid) {
+  //     return Promise.reject(new Error('未登录'))
+  //   }
+  //   // 已经有用户信息时直接返回
+  //   if (USER_INFO.id) {
+  //     return Promise.resolve(USER_INFO)
+  //   }
+  //   return getUserInfoById(uid).then(res => {
+  //     this.setUserInfo(res.data)
+  //     return res.data
+  //   })
+  // },
 
-  getUserInfoSync: function(){
-    return USER_INFO;
-  },
+  // getUserInfoSync: function(){
+  //   console.log('app getUserInfoSync: ' + JSON.stringify(USER_INFO))
+  //   return USER_INFO;
+  // },
 
   /**
    * 设置用户信息
@@ -67,6 +69,7 @@ App({
   setUserInfo: function (userInfo) {
     USER_INFO = Object.assign({}, USER_INFO, userInfo)
     this.event.emit('userInfoChanged', {userInfo: userInfo})
+    console.log('app setUserInfo: ' + JSON.stringify(USER_INFO))
   }
 })
 
@@ -77,6 +80,6 @@ var USER_INFO = {
   id: null, // 用户id
   _id: null,
   userName: '', // 登录用户名
-  nickname: '', // 昵称
+  nickName: '', // 昵称
   permission: USER_PERMISSION_VISITOR // 权限
 }

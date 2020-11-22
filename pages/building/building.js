@@ -2,6 +2,7 @@ import { getBuildingsByName,getBuildings } from '../../apis/building'
 import { debounce } from '../../utils/utils'
 import { turntoDate } from '../../utils/turnTime'
 
+
 /**
  * searching属性初始值
  * 每次输入框focu、clear、input时都要重置searching为初始状态
@@ -149,22 +150,7 @@ function fetchData (type) {
      * 因此在查询状态下，需要判断本次响应内容是否对应当前查询的关键字，
      * 如果对应再更新数据
      */
-  // return getCollectionsByBookId(id, {
-  //   start: this.data[type].buildings.length,
-  //   library_name: type === 'searching' ? keyword : null
-  // }).then(res => {
-  //   if (type === 'searching') {
-  //     const { isFocus, keyword: currentKeyword } = this.data
-  //     if (!isFocus) {
-  //       return Promise.reject(new Error('unfocus 丢弃响应结果'))
-  //     }
-  //     if (currentKeyword !== keyword) {
-  //       return Promise.reject(new Error('timeout 结果返回超时'))
-  //     }
-  //   }
-  //   return res.data.collections
-  // })
-
+  
   if (type === 'searching'){
     defaultPageNo = 0;
     return getBuildingsByName(keyword, {pageNo:searchPageNo, size:PAGE_SIZE}).then(res =>{
@@ -201,7 +187,8 @@ function bizProcessData(buildings){
         new Date(building.latestInspectionDate).getTime()
       );
     }
-    console.log('building:'+building.buildingName + ',' + building.latestSecurityState +',' +building.secure)
+    // console.log('building:'+building.buildingName + ',' + building.latestSecurityState +',' +building.secure)
+    console.log('building: '+ JSON.stringify(building))
   })
   return buildings;
 }

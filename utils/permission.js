@@ -57,6 +57,18 @@ function setToken (token) {
   TOKEN = token
 }
 
+function getNickName () {
+  return NICKNAME
+}
+
+/**
+ * 设置用户NickName
+ */
+function setNickName (nickname) {
+  NICKNAME = nickname
+}
+
+
 /**
  * 自动登录
  */
@@ -65,7 +77,7 @@ function autoLogin () {
   TOKEN = wx.getStorageSync(TOKEN_KEY)
   NICKNAME = wx.getStorageSync(NICKNAME_KEY)
   PERMISSION = wx.getStorageSync(PERMISSION_KEY)
-  ZLog.log('autologin, uid='+UID + ', TOKEN='+TOKEN)
+  ZLog.log('autologin, uid='+UID + ', TOKEN='+TOKEN + ', NICKNAME=' + NICKNAME + ', PERMISSION=' + PERMISSION)
 }
 
 /**
@@ -73,12 +85,14 @@ function autoLogin () {
  */
 function login (token, userInfo) {
   try {
+    console.log('login : ' + JSON.stringify(userInfo))
     wx.setStorageSync(TOKEN_KEY, token)
     wx.setStorageSync(UID_KEY, userInfo.id)
     wx.setStorageSync(NICKNAME_KEY, userInfo.nickName)
     wx.setStorageSync(PERMISSION_KEY, userInfo.permission)
     setToken(token)
     setUID(userInfo.id)
+    setNickName(userInfo.nickName)
     getApp().setUserInfo(userInfo)
     return true
   } catch (e) {
@@ -89,10 +103,14 @@ function login (token, userInfo) {
 
 function setLogin (token, userInfo) {
   try {
+    console.log('setLogin : ' + JSON.stringify(userInfo))
     wx.setStorageSync(TOKEN_KEY, token)
     wx.setStorageSync(UID_KEY, userInfo.id)
+    wx.setStorageSync(NICKNAME_KEY, userInfo.nickName)
+    wx.setStorageSync(PERMISSION_KEY, userInfo.permission)
     setToken(token)
     setUID(userInfo.id)
+    setNickName(userInfo.nickName)
     getApp().setUserInfo(userInfo)
     return true
   } catch (e) {
@@ -109,6 +127,7 @@ function logout () {
     wx.clearStorageSync()
     setToken(null)
     setUID(null)
+    setNickName(null)
     getApp().setUserInfo(null)
     return true
   } catch (e) {
@@ -145,6 +164,7 @@ function isLogin (showModal = false) {
 module.exports = {
   getUID: getUID,
   getToken: getToken,
+  getNickName: getNickName,
   autoLogin: autoLogin,
   login: login,
   setLogin: setLogin,

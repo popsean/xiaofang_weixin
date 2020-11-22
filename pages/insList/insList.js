@@ -42,7 +42,7 @@ Page({
       this.setData({
         dataList: res.list,
         buildingName:options.bName,
-        buildingID:options.bID,
+        buildingId:options.bID,
         unresolve:res.unresolve,
         isNoData: res.list.length === 0
       })

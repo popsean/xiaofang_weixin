@@ -5,14 +5,18 @@ import { INSPTECTION_NORMAL, INSPTECTION_EXCPTION_UNRESOLVE } from '../../utils/
 import { DOMAIN_NAME } from '../../apis/request'
 import { uploadImg } from '../../apis/uploader'
 import { addInspection } from '../../apis/inspection'
+import { getUID, getNickName } from '../../utils/permission'
 
-var app = getApp()
+
+
 var today = new Date();
+var uid = getUID()
+var userName = getNickName()
+
 const MAX_IMGS = 9;
-const MOCK_BID = '5c04f64b00c4056ce4a3cc2b';
-const MOCK_BNAME = '思源楼';
-var userName = 'zstest'
-var uid = '5f7e9b46098188e8052911c1'
+// const MOCK_BID = '5c04f64b00c4056ce4a3cc2b';
+// const MOCK_BNAME = '思源楼';
+// var uid = '5f7e9b46098188e8052911c1'
 const NORMAL_DESC = '日常巡检并对现场人员进行消防安全提示'
 console.log(formatDate(today))
 console.log(today)
@@ -23,10 +27,10 @@ Page({
    */
   data: {
     formatDate: formatDate(today),
-    userID: '',
-    createUserName: '',
-    buildingName: MOCK_BNAME,
-    buildingID: MOCK_BID,
+    userID: uid,
+    createUserName: userName,
+    buildingName: '',
+    buildingID: '',
     insStateIndex: 0,
     insHideAdd: 0,
     insAttachImgs: [],
@@ -37,8 +41,8 @@ Page({
     ],
     inspectionInfo: {
       createDate: null,
-      buildingID: MOCK_BID,
-      buildingName: MOCK_BNAME,
+      buildingID: '',
+      buildingName: '',
       createUserName: userName,
       userID: uid,
       area: '',
@@ -61,8 +65,8 @@ Page({
     ],
     hazardInfo: {
       createDate: null,
-      buildingID: MOCK_BID,
-      buildingName: MOCK_BNAME,
+      buildingID: '',
+      buildingName: '',
       createUserName: userName,
       userID: uid,
       area: '',
@@ -81,19 +85,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.data.inspectionInfo.createUserName = userName
-    console.log('onLoad userName:' + userName)
-    console.log('onLoad bName:' + options.bName)
-    console.log('onLoad bID:' + options.bID)
-    // this.data.buildingID = options.bID
-    // this.data.buildingName = options.bName
-    // this.setData({
-    //   buildingID:options.bID,
-    //   buildingName:options.bName
-    // })
+    console.log('onLoad options:' + JSON.stringify(options))
+    console.log('onLoad userInfo:' + userName + ', ' + uid)
+    this.data.buildingID = options.bID
+    this.data.buildingName = options.bName
     this.setData({
-      buildingID: MOCK_BID,
-      buildingName: MOCK_BNAME
+      buildingID:options.bID,
+      buildingName:options.bName
     })
   },
 
@@ -455,6 +453,9 @@ Page({
     wx.showLoading({ title: '上传巡检中', mask: true })
     this.data.inspectionInfo.createDate = new Date().toString();
     // this.data.inspectionInfo.attachImgs = imgPaths
+    this.data.inspectionInfo.buildingName = this.data.buildingName
+    this.data.inspectionInfo.buildingID = this.data.buildingID
+    
     this.data.inspectionInfo.hazards = this.data.hazards
     this.data.inspectionInfo.hazardsCount = this.data.hazards.length
     console.log('_updateInsInfo: ' + JSON.stringify(this.data.inspectionInfo))
@@ -468,8 +469,8 @@ Page({
   _initHazrd() {
     return {
       // createDate: '',
-      buildingID: MOCK_BID,
-      buildingName: MOCK_BNAME,
+      buildingID: this.data.buildingID,
+      buildingName: this.data.buildingName,
       area: '',
       description: '',
       detail: '',

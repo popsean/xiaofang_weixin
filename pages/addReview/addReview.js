@@ -5,14 +5,16 @@ import { INSPTECTION_NORMAL, INSPTECTION_EXCPTION_UNRESOLVE } from '../../utils/
 import { DOMAIN_NAME } from '../../apis/request'
 import { uploadImg } from '../../apis/uploader'
 import { addReview } from '../../apis/review'
+import { getUID, getNickName } from '../../utils/permission'
 
 var app = getApp()
 var today = new Date();
 const MAX_IMGS = 9;
-const MOCK_BID = '5c04f64b00c4056ce4a3cc2b';
-const MOCK_BNAME = '思源楼';
-var userName = 'zstest'
-var uid = '5f7e9b46098188e8052911c1'
+// const MOCK_BID = '5c04f64b00c4056ce4a3cc2b';
+// const MOCK_BNAME = '思源楼';
+
+var uid = getUID()
+var userName = getNickName()
 
 console.log(formatDate(today))
 console.log(today)
@@ -24,8 +26,8 @@ Page({
   data: {
     formatDate: formatDate(today),
 
-    buildingName: MOCK_BNAME,
-    buildingID: MOCK_BID,
+    buildingName: '',
+    buildingID: '',
     reviewStateIndex: 0,
     reviewHideAdd: 0,
     reviewAttachImgs: [],
@@ -33,8 +35,8 @@ Page({
     reviewInfo: {
       hazardID: '',
       reviewDate: '',
-      buildingID: MOCK_BID,
-      buildingName: MOCK_BNAME,
+      buildingID: '',
+      buildingName: '',
       createUserName: userName,
       userID: uid,
       area: '',
@@ -62,7 +64,6 @@ Page({
    */
   onLoad: function (options) {
     console.log('onLoad optins:' + JSON.stringify(options))
-    this.data.reviewInfo.createUserName = userName
     this.data.reviewInfo.hazardID = options.hazID
 
     this.data.buildingID = options.bID
