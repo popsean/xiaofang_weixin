@@ -44,7 +44,8 @@ Page({
       description: '',
       attachImgs: [],
       nextReviewDate: '',
-      customState: ''
+      customState: '',
+      source: 1
     },
     newHazIndex: 1,
     reviewStateList: [

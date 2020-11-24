@@ -51,7 +51,8 @@ Page({
       description: NORMAL_DESC,
       attachImgs: [],
       hazards: [],
-      hazardsCount: 0
+      hazardsCount: 0,
+      source: 1
     },
     newHazIndex: 1,
     hazards: [],
@@ -73,12 +74,13 @@ Page({
       area: '',
       description: '',
       detail: '',
-      hazardState: '',
+      hazardState: '立即整改',
       customState: '',
       reviewDate: '',
       index: 0,
       status: 0,
       uploadList: [],
+      source: 1
     }
   },
 
@@ -479,7 +481,7 @@ Page({
       description: '',
       detail: '',
       createDate: '',
-      hazardState: '',
+      hazardState: '立即整改',
       customState: '',
       reviewDate: '',
       index: 0,
@@ -489,6 +491,7 @@ Page({
       userID: uid,
       createUserName: userName,
       uploadImgs: [],
+      source: 1
     };
   },
 
