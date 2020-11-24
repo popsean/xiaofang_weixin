@@ -1,4 +1,11 @@
 <import src="/templates/building-list/index" />
+
+<view class="top_row">
+      <text class="text-normal">当前总楼宇: {{totalNum}}</text>
+      <text class="text-good">当月已巡检: {{curMonthChecked}}</text>
+      <text class="text-warn">当月未巡检: {{curMonthUnChecked}}</text>
+  </view>
+
 <search-bar default-text="搜索楼宇" focus-text="楼宇名称" bindfocus="onFocus" bindinput="onInput" bindclear="onClear" bindhide="onUnfocus"></search-bar>
 
 <template wx:if="{{isFocus && keyword}}" is="building-list" data="{{...searching}}"></template>

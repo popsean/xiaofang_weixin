@@ -29,7 +29,10 @@ Page({
       buildings: [], // 搜索结果，输入关键字时展示
       loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
       isNoData: false // 是否暂无数据
-    }
+    },
+    curMonthChecked: 0,
+    curMonthUnChecked: 0,
+    totalNum: 0,
   },
 
   onLoad: function (options) {
@@ -166,6 +169,12 @@ function fetchData (type) {
   }else{
     return getBuildings({pageNo:defaultPageNo, size:PAGE_SIZE}).then(res =>{
       defaultPageNo++;
+      let param = []
+      param.totalNum = res.data.totalNum;
+      param.curMonthChecked = res.data.curMonthChecked;
+      param.curMonthUnChecked = param.totalNum - param.curMonthChecked;
+      console.log('getBuildings: param=' + JSON.stringify(param))
+      this.setData(param)
       return bizProcessData(res.data.result);
     })
   }

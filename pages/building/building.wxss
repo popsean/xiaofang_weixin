@@ -1,1 +1,37 @@
-@import "/templates/building-list/index.wxss"
+@import "/templates/building-list/index.wxss";
+
+.top_row{
+  /* background-color: cyan; */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+.text-warn{
+  font-weight:bold;
+  font-size:32rpx;
+  color: #fff;
+  padding: 4px;
+  background-color: lightcoral;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+.text-good{
+  font-weight:bold;
+  font-size:32rpx;
+  color: #fff;
+  padding: 4px;
+  background-color: limegreen;
+  border-radius: 4px;
+  margin-left: 20px;
+}
+.text-normal{
+  font-weight:bold;
+  font-size:32rpx;
+  color: #fff;
+  padding: 4px;
+  background-color: green;
+  border-radius: 4px;
+  /* margin-left: 20px; */
+}
