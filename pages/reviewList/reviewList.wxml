@@ -28,7 +28,7 @@
     <view class="top_row">
       <text class="text-name">{{buildingName}}</text>
     </view>
-    <navigator class="nav top_row top_margin" url="../addReview/addReview?bName={{buildingName}}&bID={{buildingId}}&hazID={{hazId}}"
+    <navigator  wx:if="{{userPerm > 1}}" class="nav top_row top_margin" url="../addReview/addReview?bName={{buildingName}}&bID={{buildingId}}&hazID={{hazId}}"
         hover-class="weui-cell_active">
         <text wx:if="{{showAddBt}}" class="text-add">续办</text>
       </navigator>

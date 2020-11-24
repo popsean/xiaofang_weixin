@@ -68,6 +68,16 @@ function setNickName (nickname) {
   NICKNAME = nickname
 }
 
+function getPermission () {
+  return PERMISSION
+}
+
+/**
+ * 设置用户 Permission
+ */
+function setPermission (permission) {
+  PERMISSION = permission
+}
 
 /**
  * 自动登录
@@ -93,6 +103,7 @@ function login (token, userInfo) {
     setToken(token)
     setUID(userInfo.id)
     setNickName(userInfo.nickName)
+    setPermission(userInfo.permission)
     getApp().setUserInfo(userInfo)
     return true
   } catch (e) {
@@ -111,6 +122,7 @@ function setLogin (token, userInfo) {
     setToken(token)
     setUID(userInfo.id)
     setNickName(userInfo.nickName)
+    setPermission(userInfo.permission)
     getApp().setUserInfo(userInfo)
     return true
   } catch (e) {
@@ -128,8 +140,9 @@ function logout () {
     setToken(null)
     setUID(null)
     setNickName(null)
+    setPermission(1)
     getApp().setUserInfo(null)
-    return true
+    return true 
   } catch (e) {
     console.error('清空storage失败: ' + e)
     return false
@@ -165,6 +178,7 @@ module.exports = {
   getUID: getUID,
   getToken: getToken,
   getNickName: getNickName,
+  getPermission: getPermission,
   autoLogin: autoLogin,
   login: login,
   setLogin: setLogin,

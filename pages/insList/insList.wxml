@@ -11,7 +11,7 @@
     <view class="top_row top_margin">
       <text wx:if="{{unresolve > 0}}" class="text-warn ">异常未解决:{{unresolve}}</text>
       <text wx:if="{{unresolve == 0}}" class="text-normal">一切正常</text>
-      <navigator class="nav" url="../addIns/addIns?bName={{buildingName}}&bID={{buildingId}}"
+      <navigator wx:if="{{userPerm > 1}}" class="nav" url="../addIns/addIns?bName={{buildingName}}&bID={{buildingId}}"
         hover-class="weui-cell_active">
         <text class="text-add">新增巡检</text>
       </navigator>
@@ -25,7 +25,7 @@
     <view class="top_row top_margin">
       <text wx:if="{{unresolve > 0}}" class="text-warn ">异常未解决:{{unresolve}}</text>
       <text wx:if="{{unresolve == 0}}" class="text-normal">一切正常</text>
-      <navigator class="nav" url="../addIns/addIns?bName={{buildingName}}&bID={{buildingId}}"
+      <navigator wx:if="{{userPerm > 1}}"  class="nav" url="../addIns/addIns?bName={{buildingName}}&bID={{buildingId}}"
         hover-class="weui-cell_active">
         <text class="text-add">新增巡检</text>
       </navigator>

@@ -1,5 +1,6 @@
 import { getInspections } from '../../apis/inspection'
 import { turntoDate } from '../../utils/turnTime'
+import { getPermission} from '../../utils/permission'
 
 
 
@@ -10,6 +11,7 @@ import { turntoDate } from '../../utils/turnTime'
 const PAGE_SIZE = 10;
 var pageNo = 1;
 const app = getApp()
+var permission = getPermission()
 
 Page({
 
@@ -27,6 +29,7 @@ Page({
     dataList: [], 
     loadMoreStatus: 'hidding', // 加载更多组件：loading, nomore，hidding
     isNoData: false, // 是否暂无数据,
+    userPerm: permission,
   },
 
   onShow: function (options){

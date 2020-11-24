@@ -173,7 +173,6 @@ function fetchData (type) {
       param.totalNum = res.data.totalNum;
       param.curMonthChecked = res.data.curMonthChecked;
       param.curMonthUnChecked = param.totalNum - param.curMonthChecked;
-      console.log('getBuildings: param=' + JSON.stringify(param))
       this.setData(param)
       return bizProcessData(res.data.result);
     })
