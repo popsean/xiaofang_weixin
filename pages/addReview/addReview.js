@@ -1,7 +1,6 @@
 // pages/review/review.js
 import { formatDate } from '../../utils/utils'
 import Promisify from '../../utils/promisify'
-import { INSPTECTION_NORMAL, INSPTECTION_EXCPTION_UNRESOLVE } from '../../utils/constant'
 import { DOMAIN_NAME } from '../../apis/request'
 import { uploadImg } from '../../apis/uploader'
 import { addReview } from '../../apis/review'
@@ -206,7 +205,7 @@ Page({
     }).catch((err) => {
       wx.hideLoading()
       console.error('上传review失败 catch:' + err)
-        wx.showToast({ title: '上传失败, 请联系管理员', mask: true, icon: 'none' })
+      wx.showToast({ title: '上传失败, 请联系管理员', mask: true, icon: 'none' })
     });
   },
 
@@ -238,27 +237,6 @@ Page({
         }
       })
     }
-
-    //由于隐患的附件属于二级维度, 需要一个idx标记是第几个隐患
-    var uploadForReview = function (idx, imgPath) {
-      return new Promise((resolve, reject) => {
-        console.log('uploadForReview: imgPath=' + imgPath)
-
-        if (imgPath.indexOf(DOMAIN_NAME) === -1) {
-          wx.showLoading({ title: '上传图片中', mask: true })
-          uploadImg(imgPath)
-            .then(res => {
-              let files = { url: JSON.parse(res).optImgSrc, status: 'finished' }
-              resolve([idx, files])
-              console.log('uploadForReview-uploadImg: sucess=' + JSON.stringify(files))
-            })
-            .catch(err => reject(err))
-        } else {
-          resolve([idx, imgPath])
-        }
-      })
-    }
-
     let reviewImgPromises = []
     const self = this;
     imgsToUpload.forEach(url => {
@@ -275,7 +253,7 @@ Page({
               self.data.reviewInfo.attachImgs.push(oneImg)
               resolve(oneImg);
             }).catch(err => {
-              console.log('_uploadAttachedImgs for ins err:' + JSON.stringify(err))
+              console.log('_uploadAttachedImgs for review err:' + JSON.stringify(err))
               reject(err)
             })
         }))
