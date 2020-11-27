@@ -13,9 +13,6 @@ const MAX_IMGS = 9;
 // const MOCK_BID = '5c04f64b00c4056ce4a3cc2b';
 // const MOCK_BNAME = '思源楼';
 
-var uid = getUID()
-var userName = getNickName()
-
 console.log(formatDate(today))
 console.log(today)
 Page({
@@ -37,8 +34,8 @@ Page({
       reviewDate: '',
       buildingID: '',
       buildingName: '',
-      createUserName: userName,
-      userID: uid,
+      createUserName: '',
+      userID: '',
       area: '',
       state: '已解决',
       description: '',
@@ -71,7 +68,9 @@ Page({
     this.data.buildingName = options.bName
     this.setData({
       buildingID:options.bID,
-      buildingName:options.bName
+      buildingName:options.bName,
+      createUserName: getNickName(),
+      userID: getUID()
     })
     console.log('onLoad data:' + JSON.stringify(this.data))
   },
@@ -195,16 +194,20 @@ Page({
       console.log('onSubmit: res=' + JSON.stringify(res))
       if (res.data.code == 0) {
         wx.showToast({ title: '创建回查成功', mask: true })
-        NB_TIMER = setTimeout(() => {
+       setTimeout(() => {
           app.globalData.needRefresh = true
           wx.navigateBack()
         }, 1000)
       } else {
-        wx.showToast({ title: '失败: ' + res.data.message.message, mask: true, icon: 'none' })
+        // wx.showToast({ title: '失败: ' + res.data.message.message, mask: true, icons: 'none' })
+        // wx.showToast({ title: '上传失败, 请联系管理员', mask: true, icon: 'none' })
       }
 
-    }).
-      catch(() => wx.hideLoading());
+    }).catch((err) => {
+      wx.hideLoading()
+      console.error('上传review失败 catch:' + err)
+        wx.showToast({ title: '上传失败, 请联系管理员', mask: true, icon: 'none' })
+    });
   },
 
   /**
@@ -237,9 +240,9 @@ Page({
     }
 
     //由于隐患的附件属于二级维度, 需要一个idx标记是第几个隐患
-    var uploadForHaz = function (idx, imgPath) {
+    var uploadForReview = function (idx, imgPath) {
       return new Promise((resolve, reject) => {
-        console.log('uploadForHaz: imgPath=' + imgPath)
+        console.log('uploadForReview: imgPath=' + imgPath)
 
         if (imgPath.indexOf(DOMAIN_NAME) === -1) {
           wx.showLoading({ title: '上传图片中', mask: true })
@@ -247,7 +250,7 @@ Page({
             .then(res => {
               let files = { url: JSON.parse(res).optImgSrc, status: 'finished' }
               resolve([idx, files])
-              console.log('uploadForHaz-uploadImg: sucess=' + JSON.stringify(files))
+              console.log('uploadForReview-uploadImg: sucess=' + JSON.stringify(files))
             })
             .catch(err => reject(err))
         } else {
@@ -271,6 +274,9 @@ Page({
               }
               self.data.reviewInfo.attachImgs.push(oneImg)
               resolve(oneImg);
+            }).catch(err => {
+              console.log('_uploadAttachedImgs for ins err:' + JSON.stringify(err))
+              reject(err)
             })
         }))
     })
@@ -287,6 +293,8 @@ Page({
   _updateReviewInfo: function () {
     wx.showLoading({ title: '上传回查中', mask: true })
     this.data.reviewInfo.reviewDate = new Date().toString();
+    this.data.reviewInfo.userID = getUID();
+    this.data.reviewInfo.createUserName = getNickName();
 
     console.log('_updateReviewInfo: ' + JSON.stringify(this.data.reviewInfo))
     console.log('_updateReviewInfoDate: ' + this.data.reviewInfo.reviewDate)

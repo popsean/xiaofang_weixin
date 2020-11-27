@@ -10,8 +10,6 @@ import { getUID, getNickName } from '../../utils/permission'
 
 
 var today = new Date();
-var uid = getUID()
-var userName = getNickName()
 const app = getApp()
 
 const MAX_IMGS = 9;
@@ -28,8 +26,8 @@ Page({
    */
   data: {
     formatDate: formatDate(today),
-    userID: uid,
-    createUserName: userName,
+    userID: '',
+    createUserName: '',
     buildingName: '',
     buildingID: '',
     insStateIndex: 0,
@@ -44,8 +42,8 @@ Page({
       createDate: null,
       buildingID: '',
       buildingName: '',
-      createUserName: userName,
-      userID: uid,
+      createUserName: '',
+      userID: '',
       area: '',
       state: INSPTECTION_NORMAL,
       description: NORMAL_DESC,
@@ -69,8 +67,8 @@ Page({
       createDate: null,
       buildingID: '',
       buildingName: '',
-      createUserName: userName,
-      userID: uid,
+      createUserName: '',
+      userID: '',
       area: '',
       description: '',
       detail: '',
@@ -89,12 +87,14 @@ Page({
    */
   onLoad: function (options) {
     console.log('onLoad options:' + JSON.stringify(options))
-    console.log('onLoad userInfo:' + userName + ', ' + uid)
+
     this.data.buildingID = options.bID
     this.data.buildingName = options.bName
     this.setData({
-      buildingID:options.bID,
-      buildingName:options.bName
+      buildingID: options.bID,
+      buildingName: options.bName,
+      createUserName: getNickName(),
+      userID: getUID()
     })
   },
 
@@ -339,16 +339,19 @@ Page({
       console.log('onSubmit: res=' + JSON.stringify(res))
       if (res.data.code == 0) {
         wx.showToast({ title: '创建巡检成功', mask: true })
-        NB_TIMER = setTimeout(() => {
+        setTimeout(() => {
           app.globalData.needRefresh = true
           wx.navigateBack()
         }, 1000)
       } else {
-        wx.showToast({ title: res.data.message, mask: true, icon: 'none' })
+        // wx.showToast({ title: '上传失败, 请联系管理员', mask: true, icon: 'none' })
       }
 
-    }).
-      catch(() => wx.hideLoading());
+    }).catch((err) => {
+      wx.hideLoading()
+      console.error('上传Ins失败 catch:' + err)
+      wx.showToast({ title: '上传失败, 请联系管理员', mask: true, icon: 'none' })
+    });
   },
 
   /**
@@ -415,6 +418,9 @@ Page({
               }
               self.data.inspectionInfo.attachImgs.push(oneImg)
               resolve(oneImg);
+            }).catch(err => {
+              console.log('_uploadAttachedImgs for ins err:' + JSON.stringify(err))
+              reject(err)
             })
         }))
     })
@@ -431,6 +437,9 @@ Page({
                 console.log('upload [haz]-' + haz.area + ' finish ,upload: idx=' + idx + ',imgPath=' + oneImg)
                 self.data.hazards[idx].attachImgs.push(oneImg)
                 resolve(oneImg)
+              }).catch(err => {
+                console.log('_uploadAttachedImgs for haz err:' + JSON.stringify(err))
+                reject(err)
               })
           })
         );
@@ -439,7 +448,7 @@ Page({
 
 
     let promises = allHazImgPromises.concat(insImgPromises)
-    console.log('_uploadAttachedImgs promiseS : ' + promises.le)
+    console.log('_uploadAttachedImgs promiseS : ' + promises.length)
     return Promise.all(promises).then(serverPaths => {
       console.log('_uploadAttachedImgs upload : serverPaths=' + JSON.stringify(serverPaths))
       // return serverPaths; 这里不用返回也ok了
@@ -461,7 +470,9 @@ Page({
     // this.data.inspectionInfo.attachImgs = imgPaths
     this.data.inspectionInfo.buildingName = this.data.buildingName
     this.data.inspectionInfo.buildingID = this.data.buildingID
-    
+    this.data.inspectionInfo.userID = getUID()
+    this.data.inspectionInfo.createUserName = getNickName()
+
     this.data.inspectionInfo.hazards = this.data.hazards
     this.data.inspectionInfo.hazardsCount = this.data.hazards.length
     console.log('_updateInsInfo: ' + JSON.stringify(this.data.inspectionInfo))
@@ -488,8 +499,8 @@ Page({
       status: '',
       statusIndex: 0,
       attachImgs: [],
-      userID: uid,
-      createUserName: userName,
+      userID: this.data.userID,
+      createUserName: this.data.createUserName,
       uploadImgs: [],
       source: 1
     };
